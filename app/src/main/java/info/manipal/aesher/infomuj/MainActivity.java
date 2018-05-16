@@ -18,6 +18,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.manipal.aesher.infomuj.Fragment.DialogueFlow;
 import info.manipal.aesher.infomuj.Fragment.MainPage;
 
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+    public void initiateDialogueFlow(){
+        DialogueFlow dialogueFlow = new DialogueFlow();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFragment, dialogueFlow);
+        ft.commit();
+    }
 
 
     public void replaceFrag(){
