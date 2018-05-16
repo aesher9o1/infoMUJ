@@ -1,11 +1,15 @@
 package info.manipal.aesher.infomuj.Fragment;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
 import android.util.Log;
@@ -71,10 +75,7 @@ public class MainPage extends Fragment {
         final IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
 
-        if(result!=null&&Integer.valueOf(result.getContents())<100){
-            //ToDo Vidhyanshu Jain
 
-        }
     }
 
 
@@ -93,7 +94,7 @@ public class MainPage extends Fragment {
                             break;
 
                         case 2:
-                            Log.w("Aashis",""+2);
+                            gotoMUJBot();
                             break;
                         case 3:Log.w("Aashis",""+2);
                             break;
@@ -137,7 +138,7 @@ public class MainPage extends Fragment {
                                     break;
 
                                 case 2:
-                                    Log.w("Aashis",""+2);
+                                    gotoMUJBot();
                                     break;
                                 case 3:Log.w("Aashis",""+2);
                                     break;
@@ -153,6 +154,12 @@ public class MainPage extends Fragment {
     }
 
 
+
+    public  void gotoMUJBot(){
+        DialogueFlow dialogueFlow = new DialogueFlow();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, dialogueFlow).commit();
+    }
+
     private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
 
         @Override
@@ -160,4 +167,7 @@ public class MainPage extends Fragment {
             return true;
         }
     }
+
+
+
 }
