@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "887693586672",
+    "firebase_url": "https://info-muj.firebaseio.com",
+    "project_id": "info-muj",
+    "storage_bucket": "info-muj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887693586672:android:82a12fab954fe34d",
+        "android_client_info": {
+          "package_name": "info.manipal.aesher.infomuj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887693586672-1tqh93g7q2j3kucaf679d05j82b1p4gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.manipal.aesher.infomuj",
+            "certificate_hash": "1f4943514c9d62b3777e9f0fecb74b1c75016015"
+          }
+        },
+        {
+          "client_id": "887693586672-rtbh00cl8b87b6qubjs8i43bjj5nsq25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACoEWWrKPNEzvXuiHxEYNoTiVyIx9lwWI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887693586672-rtbh00cl8b87b6qubjs8i43bjj5nsq25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="0dp"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoFadeColor="@android:color/transparent"
+    sothree:umanoScrollableView="@+id/list">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1">
+
+        <ImageView
+            android:alpha="0.15"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+      <TextView
+          android:layout_marginTop="13dip"
+          android:layout_marginStart="9dip"
+          android:textSize="21sp"
+          android:textColor="#212121"
+          android:layout_gravity="center_horizontal"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Info Muj"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <FrameLayout
+                android:id="@+id/mainFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View android:layout_width="match_parent"
+                android:layout_height="6dip"
+                android:background="@drawable/dropshadow"/>
+
+            <RelativeLayout
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:layout_gravity="bottom"
+                android:elevation="18dp"
+                android:background="@android:color/white"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:elevation="118dip"
+            android:layout_marginBottom="34dip"
+            android:layout_height="wrap_content"
+            android:text="Useful Contacts"
+            android:textAllCaps="false"
+            android:drawablePadding="11dip"
+            android:drawableLeft="@drawable/ic_call"
+            android:paddingRight="25dip"
+            android:paddingLeft="25dip"
+            android:textColor="@color/white"
+            style="@style/AppTheme.RoundedCornerMaterialButton"/>
+        <LinearLayout
+            android:id="@+id/notifications"
+            android:layout_gravity="bottom|end"
+            android:layout_width="56dip"
+            android:layout_height="56dip"/>
+
+        <ImageView
+
+            android:tint="@color/lightGrey"
+            android:layout_marginEnd="20dip"
+            android:layout_marginBottom="18dip"
+            android:layout_gravity="bottom|end"
+            android:layout_width="22dip"
+            android:layout_height="22dip"
+            android:src="@drawable/dots"/>
+
+        <LinearLayout
+            android:id="@+id/hamburger"
+            android:layout_gravity="bottom|start"
+            android:layout_width="56dip"
+            android:layout_height="56dip"/>
+
+        <ImageView
+            android:tint="@color/lightGrey"
+            android:layout_marginStart="20dip"
+            android:layout_marginBottom="18dip"
+            android:layout_gravity="bottom|start"
+            android:layout_width="22dip"
+            android:layout_height="22dip"
+            android:src="@drawable/hamburger"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+<FrameLayout
+android:elevation="10dip"
+android:clickable="true"
+android:focusable="true"
+android:background="@color/background"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="9dip"
+        android:layout_marginStart="5dip"
+        android:layout_marginBottom="5dip"
+        sothree:cardCornerRadius="7dip"
+        sothree:cardBackgroundColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<LinearLayout
+  android:layout_margin="15dip"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textColor="#212121"
+        android:textSize="13sp"
+        android:layout_marginStart="5dip"
+        android:layout_marginBottom="3dip"
+        android:text="ENGINEERING"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:paddingBottom="4dip"
+        android:layout_marginStart="16dip"
+        android:layout_marginEnd="16dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="CSE"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="IT"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="CCE"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Electrical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:paddingBottom="4dip"
+        android:layout_marginStart="16dip"
+        android:layout_marginEnd="16dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="ECE"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Mechatronics"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Mechanical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Automobile"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:paddingBottom="4dip"
+        android:layout_marginStart="16dip"
+        android:layout_marginEnd="16dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:padding="5dip"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="52dip"
+                android:layout_height="52dip"
+                android:background="@drawable/rounded_shape"/>
+            <TextView
+                android:layout_marginTop="3dip"
+                android:textColor="#707070"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Chemical"/>
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="7dip"
+        android:layout_marginStart="5dip"
+        android:layout_marginBottom="5dip"
+        sothree:cardCornerRadius="7dip"
+        sothree:cardBackgroundColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="15dip"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#212121"
+                android:textSize="13sp"
+                android:layout_marginStart="5dip"
+                android:layout_marginBottom="3dip"
+                android:text="STUDENT CLUBS"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:paddingBottom="4dip"
+                android:layout_marginStart="16dip"
+                android:layout_marginEnd="16dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:padding="5dip"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="52dip"
+                        android:layout_height="52dip"
+                        android:background="@drawable/rounded_shape"/>
+                    <TextView
+                        android:layout_marginTop="3dip"
+                        android:textColor="#707070"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="IEEE SB MUJ"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:padding="5dip"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="52dip"
+                        android:layout_height="52dip"
+                        android:background="@drawable/rounded_shape"/>
+                    <TextView
+                        android:layout_marginTop="3dip"
+                        android:textColor="#707070"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="ACM SCHAP MUJ"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:padding="5dip"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="52dip"
+                        android:layout_height="52dip"
+                        android:background="@drawable/rounded_shape"/>
+                    <TextView
+                        android:layout_marginTop="3dip"
+                        android:textColor="#707070"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="IAESTE MUJ"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+</LinearLayout>
+</FrameLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
