@@ -13,6 +13,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/background"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,19 +31,19 @@
             android:src="@drawable/back"/>
 
         <LinearLayout
+            android:id="@+id/container"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
       <TextView
-          android:layout_marginTop="13dip"
-          android:layout_marginStart="9dip"
+          android:gravity="center_horizontal"
+          android:id="@+id/heading"
           android:textSize="21sp"
           android:textColor="#212121"
-          android:layout_gravity="center_horizontal"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Info Muj"/>
+         />
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -77,6 +78,8 @@
         </LinearLayout>
 
         <Button
+
+            android:id="@+id/contactButton"
             android:layout_width="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:elevation="118dip"
@@ -85,7 +88,7 @@
             android:text="Useful Contacts"
             android:textAllCaps="false"
             android:drawablePadding="11dip"
-            android:drawableLeft="@drawable/ic_call"
+            android:drawableStart="@drawable/ic_call"
             android:paddingRight="25dip"
             android:paddingLeft="25dip"
             android:textColor="@color/white"
@@ -161,230 +164,18 @@ android:layout_height="match_parent">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:paddingBottom="4dip"
-        android:layout_marginStart="16dip"
-        android:layout_marginEnd="16dip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="CSE"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="IT"/>
-        </LinearLayout>
 
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="CCE"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Electrical"/>
-        </LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:paddingBottom="4dip"
-        android:layout_marginStart="16dip"
-        android:layout_marginEnd="16dip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="ECE"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Mechatronics"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Mechanical"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Automobile"/>
-        </LinearLayout>
+     <android.support.v7.widget.RecyclerView
+         android:paddingBottom="4dip"
+         android:layout_marginStart="16dip"
+         android:layout_marginEnd="16dip"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/engineering"/>
 
 
 
-
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:paddingBottom="4dip"
-        android:layout_marginStart="16dip"
-        android:layout_marginEnd="16dip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:padding="5dip"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="52dip"
-                android:layout_height="52dip"
-                android:background="@drawable/rounded_shape"/>
-            <TextView
-                android:layout_marginTop="3dip"
-                android:textColor="#707070"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Chemical"/>
-        </LinearLayout>
-
-
-
-
-
-    </LinearLayout>
 
 
 </LinearLayout>
@@ -416,82 +207,14 @@ android:layout_height="match_parent">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="4"
+            <android.support.v7.widget.RecyclerView
                 android:paddingBottom="4dip"
                 android:layout_marginStart="16dip"
                 android:layout_marginEnd="16dip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/clubs"/>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dip"
-                    android:padding="5dip"
-                    android:gravity="center_horizontal"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="52dip"
-                        android:layout_height="52dip"
-                        android:background="@drawable/rounded_shape"/>
-                    <TextView
-                        android:layout_marginTop="3dip"
-                        android:textColor="#707070"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="IEEE SB MUJ"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dip"
-                    android:padding="5dip"
-                    android:gravity="center_horizontal"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="52dip"
-                        android:layout_height="52dip"
-                        android:background="@drawable/rounded_shape"/>
-                    <TextView
-                        android:layout_marginTop="3dip"
-                        android:textColor="#707070"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="ACM SCHAP MUJ"/>
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dip"
-                    android:padding="5dip"
-                    android:gravity="center_horizontal"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="52dip"
-                        android:layout_height="52dip"
-                        android:background="@drawable/rounded_shape"/>
-                    <TextView
-                        android:layout_marginTop="3dip"
-                        android:textColor="#707070"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="IAESTE MUJ"/>
-                </LinearLayout>
-
-
-
-
-
-            </LinearLayout>
 
 
 
