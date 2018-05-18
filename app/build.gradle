@@ -45,10 +45,13 @@ dependencies {
 
 
     implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.google.firebase:firebase-messaging:15.0.2'
+    implementation 'com.google.firebase:firebase-database:15.0.0'
+    implementation 'com.google.guava:guava:20.0'
     api 'com.journeyapps:zxing-android-embedded:3.5.0'
     api 'com.andkulikov:transitionseverywhere:1.7.9'
 
-    compile 'com.github.stfalcon:chatkit:0.2.2'
+    implementation 'com.github.stfalcon:chatkit:0.2.2'
 
 }
 apply plugin: 'com.google.gms.google-services'

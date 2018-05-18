@@ -3,14 +3,15 @@ package info.manipal.aesher.infomuj;
 import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -18,26 +19,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
+import com.google.android.gms.common.api.Batch;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.transitionseverywhere.ChangeText;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.manipal.aesher.infomuj.Adapters.ClubAdapter;
 import info.manipal.aesher.infomuj.Adapters.ClubProvider;
+import info.manipal.aesher.infomuj.Constants.InitialData;
 import info.manipal.aesher.infomuj.Constants.NavMenuMain;
+import info.manipal.aesher.infomuj.DAO.Branch;
+import info.manipal.aesher.infomuj.DAO.FetchBranchesDAO;
 import info.manipal.aesher.infomuj.Fragment.DialogueFlow;
 import info.manipal.aesher.infomuj.Fragment.MainPage;
 
@@ -48,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     MainPage fragmentMainPage;
     DialogueFlow dialogueFlow;
 
+    SharedPreferences prefs = null;
 
 
     NavMenuMain contentFillers;
@@ -98,7 +108,44 @@ public class MainActivity extends AppCompatActivity {
         isSoundPermission();
         replaceFrag();
 
+        prefs = getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
 
+        if (prefs.getBoolean("firstrun", true)) {
+            final Future<Map<String, Branch>> listFutureForBranches = FetchBranchesDAO
+                    .getInstance()
+                    .getBranches();
+
+            SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
+            branchSharedPrefs.putString("branches", new InitialData().branches);
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        while ((!listFutureForBranches.isDone())){
+                            Thread.sleep(500);
+                        }
+                        Map<String, Branch> branchMap = new HashMap<String, Branch>();
+                        branchMap = listFutureForBranches.get();
+                        StringBuilder output = new StringBuilder();
+                        for (Map.Entry<String, Branch> entry : branchMap.entrySet())
+                        {   Branch current = entry.getValue();
+                            output.append("#"+current.name+"#"+current.shortOverview+"#"+current.longOverview+"#"+current.img_url_1+"#"+current.img_url_2+"#"+current.img_url_3);
+                        }
+                        SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
+                        branchSharedPrefs.putString("branches", output.toString());
+
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+        }
 
         contentFillers = new NavMenuMain();
 
