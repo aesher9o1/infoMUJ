@@ -1,6 +1,8 @@
 package info.manipal.aesher.infomuj;
 
 import android.Manifest;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +19,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -130,6 +133,19 @@ public class MainActivity extends AppCompatActivity {
        heading.setText(textWhenMainScreen);
 
         dialogueFlow = (DialogueFlow) getSupportFragmentManager().findFragmentByTag("Chatbot");
+        contactListner();
+
+    }
+
+    public void contactListner(){
+        dialogueFlowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,ContactActivity.class);
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,dialogueFlowButton,dialogueFlowButton.getTransitionName()).toBundle();
+                startActivity(i,bundle);
+            }
+        });
     }
 
 
@@ -140,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
                     new ChangeText().setChangeBehavior(3));
                     heading.setText(textWhenMainScreen);
                     replaceButton();
+                    contactListner();
+
         }
 
 
@@ -157,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }; delayForButtonChange.postDelayed(runnable,301);
         dialogueFlowButton.setOnTouchListener(null);
+        dialogueFlowButton.setOnClickListener(null);
+
     }
 
 
@@ -177,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         else if(heading.getText().toString().equals(textWhenDialogueScreen)){
             replaceFrag();
             reset();
-            dialogueFlowButton.setOnClickListener(null);
+
         }
         else
             super.onBackPressed();

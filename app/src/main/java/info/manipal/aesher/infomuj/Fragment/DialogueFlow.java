@@ -112,7 +112,8 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
             }
         };handler.postDelayed(runnable,500);
 
-
+        dialogueFlowButton.setOnTouchListener(null);
+        dialogueFlowButton.setOnClickListener(null);
 
         dialogueFlowButton.setOnTouchListener(new View.OnTouchListener() {
           @Override

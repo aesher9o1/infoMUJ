@@ -1,8 +1,13 @@
 package info.manipal.aesher.infomuj.Constants;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
 import java.util.List;
 
 import info.manipal.aesher.infomuj.Adapters.ClubProvider;
+import info.manipal.aesher.infomuj.Adapters.ContactProvider;
+import info.manipal.aesher.infomuj.R;
 
 public class NavMenuMain {
 
@@ -39,7 +44,19 @@ public class NavMenuMain {
         provider.add(p1);
         p1 = new ClubProvider("I","IAESTE MUJ","NaN",false,-1);
         provider.add(p1);
+    }
 
-
+    public void contact(List<ContactProvider> provider, Context context){
+        ContactProvider p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        provider.add(p1);
+        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        provider.add(p1);
+        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        provider.add(p1);
+        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        provider.add(p1);
     }
 }
+
+
+
