@@ -12,7 +12,7 @@
         android:layout_marginEnd="-4dip"
         android:layout_height="wrap_content"
         android:text="Useful Contacts"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/materialBlue"
         android:textAllCaps="false"
         android:drawablePadding="11dip"
         android:drawableStart="@drawable/ic_call"

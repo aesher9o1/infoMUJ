@@ -1,6 +1,7 @@
 package info.manipal.aesher.infomuj.Adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
             super(itemView);
             contactImage = itemView.findViewById(R.id.contactIcon);
             contactPerson = itemView.findViewById(R.id.contactPerson);
+
         }
 
     }
