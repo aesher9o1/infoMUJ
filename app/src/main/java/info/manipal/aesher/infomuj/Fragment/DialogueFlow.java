@@ -78,7 +78,7 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
         View v = inflater.inflate(R.layout.fragment_chatbot,container,false);
         ButterKnife.bind(this,v);
 
-
+        isSoundPermission();
 
         //getting the container and the buttons of the main activity
         transitionsContainer = getActivity().getWindow().getDecorView().findViewById(R.id.container);
@@ -159,6 +159,15 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
     }
 
+
+    public void isSoundPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+            }
+        }
+
+    }
 
     public void welcomeMessage(){
 

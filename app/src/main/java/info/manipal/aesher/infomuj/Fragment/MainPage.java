@@ -3,6 +3,7 @@ package info.manipal.aesher.infomuj.Fragment;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActivityOptions;
 import android.content.Intent;
 
 import android.net.Uri;
@@ -31,6 +32,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.manipal.aesher.infomuj.Developers;
 import info.manipal.aesher.infomuj.MainActivity;
 import info.manipal.aesher.infomuj.R;
 
@@ -104,7 +106,9 @@ public class MainPage extends Fragment {
                         case 2:
                             gotoMUJBot();
                             break;
-                        case 3:Log.w("Aashis",""+2);
+                        case 3:
+                            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),developerButton,developerButton.getTransitionName()).toBundle();
+                            startActivity(new Intent(getActivity(), Developers.class),bundle);
                             break;
                         case 4:
                             startActivity(  new Intent( Intent.ACTION_VIEW , Uri.parse( "https://jaipur.manipal.edu/" ) ) );
@@ -151,7 +155,7 @@ public class MainPage extends Fragment {
                                 case 2:
                                     gotoMUJBot();
                                     break;
-                                case 3:Log.w("Aashis",""+2);
+                                case 3:startActivity(new Intent(getActivity(), Developers.class));
                                     break;
                                 case 4: startActivity(  new Intent( Intent.ACTION_VIEW , Uri.parse( "https://jaipur.manipal.edu/" ) ) );
                                 break;

@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         isCameraPermission();
-        isSoundPermission();
         replaceFrag();
 
         prefs = getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
@@ -252,14 +251,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void isSoundPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
-            }
-        }
-
-    }
 
 
     public void isCameraPermission() {
