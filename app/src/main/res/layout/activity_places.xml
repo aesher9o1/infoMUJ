@@ -17,7 +17,7 @@
         android:backgroundTint="@color/materialBlue"
         android:textAllCaps="false"
         android:drawablePadding="11dip"
-        android:drawableStart="@drawable/ic_navigation"
+        android:drawableStart="@drawable/navigation"
         android:paddingRight="25dip"
         android:paddingLeft="25dip"
         android:textColor="@color/white"

@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 dialogueFlowButton.setText("Popular Places");
-                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_navigation), null, null, null);
+                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(), R.drawable.navigation), null, null, null);
                 dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
             }
         }; delayForButtonChange.postDelayed(runnable,301);

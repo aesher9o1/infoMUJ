@@ -62,7 +62,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:src="@drawable/web"
+                            android:src="@drawable/ic_web"
                             android:layout_width="30dip"
                             android:layout_height="30dip" />
                         <TextView
@@ -82,6 +82,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:tint="@color/materialBlue"
                             android:src="@drawable/scan"
                             android:layout_width="30dip"
                             android:layout_height="30dip" />
