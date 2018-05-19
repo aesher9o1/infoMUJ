@@ -19,14 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Batch;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.transitionseverywhere.ChangeText;
 
@@ -188,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         dialogueFlowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,ContactActivity.class);
+                Intent i = new Intent(MainActivity.this,PlacesActivity.class);
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,dialogueFlowButton,dialogueFlowButton.getTransitionName()).toBundle();
                 startActivity(i,bundle);
             }
@@ -216,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                dialogueFlowButton.setText("Useful Contacts");
-                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_call), null, null, null);
+                dialogueFlowButton.setText("Popular Places");
+                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_navigation), null, null, null);
                 dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
             }
         }; delayForButtonChange.postDelayed(runnable,301);

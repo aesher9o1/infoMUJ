@@ -47,13 +47,9 @@ public class NavMenuMain {
     }
 
     public void contact(List<ContactProvider> provider, Context context){
-        ContactProvider p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        ContactProvider p1 = new ContactProvider("Hostel Gym","gym", R.drawable.ic_gym);
         provider.add(p1);
-        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
-        provider.add(p1);
-        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
-        provider.add(p1);
-        p1 = new ContactProvider("Android Developers","9862388682", R.drawable.user);
+        p1 = new ContactProvider("Student Library","library", R.drawable.ic_library);
         provider.add(p1);
     }
 }

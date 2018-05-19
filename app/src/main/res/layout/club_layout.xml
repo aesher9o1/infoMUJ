@@ -1,5 +1,6 @@
 <LinearLayout android:orientation="vertical"
     android:layout_weight="1"
+
     android:layout_width="match_parent"
     android:padding="5dip"
     android:gravity="center_horizontal"

@@ -2,6 +2,8 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <Button
         android:transitionName="@string/app_name"
         android:id="@+id/contactButton"
@@ -11,11 +13,11 @@
         android:layout_marginStart="54dip"
         android:layout_marginEnd="-4dip"
         android:layout_height="wrap_content"
-        android:text="Useful Contacts"
+        android:text="Popular Places"
         android:backgroundTint="@color/materialBlue"
         android:textAllCaps="false"
         android:drawablePadding="11dip"
-        android:drawableStart="@drawable/ic_call"
+        android:drawableStart="@drawable/ic_navigation"
         android:paddingRight="25dip"
         android:paddingLeft="25dip"
         android:textColor="@color/white"
@@ -39,8 +41,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/contactRecycler"
+            <FrameLayout
+                android:id="@+id/listfragments"
                 android:layout_marginTop="60dip"
                 android:layout_marginStart="20dip"
                 android:layout_marginBottom="30dip"

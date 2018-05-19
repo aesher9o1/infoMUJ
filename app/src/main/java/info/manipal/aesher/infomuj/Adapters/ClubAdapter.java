@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.OnClick;
 import info.manipal.aesher.infomuj.R;
 
 public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder>{
@@ -38,6 +41,7 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder>{
     holder.clubButton.setText(provider.getButtonText());
     holder.clubTitle.setText(provider.getLayoutTitle());
 
+
     }
 
     @Override
@@ -48,10 +52,13 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder>{
     static class MyViewHolder extends RecyclerView.ViewHolder{
         Button clubButton;
         TextView clubTitle;
+
+
         MyViewHolder(View itemView) {
             super(itemView);
             clubButton = itemView.findViewById(R.id.roundedButton);
             clubTitle = itemView.findViewById(R.id.clubTitle);
+
         }
 
     }

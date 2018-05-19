@@ -4,6 +4,7 @@
 <LinearLayout android:layout_centerVertical="true"
     android:paddingTop="17dip"
     android:paddingBottom="17dip"
+    android:id="@+id/body"
     android:paddingStart="5dip"
     android:paddingEnd="7dip"
     android:background="@color/white"

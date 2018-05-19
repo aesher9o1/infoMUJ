@@ -216,14 +216,14 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
 
         if(parts[3]!=null && result.getResult()!=null){
-            author = new Author("1","Chatbot","hey");
-            message = new Message("1",parts[3],author);
+            author = new Author("2","Chatbot","hey");
+            message = new Message("2",parts[3],author);
             adapter.addToStart(message,true);
             ai.api.model.Result RESULT = result.getResult();
             String textS= RESULT.getFulfillment().getSpeech();
             Log.w("API_result",textS);
-            author = new Author("2","Chatbot","hey");
-            message = new Message("2",textS,author);
+            author = new Author("1","Chatbot","hey");
+            message = new Message("1",textS,author);
             adapter.addToStart(message,true);
             speakOut(textS);
         }

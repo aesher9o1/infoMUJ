@@ -52,7 +52,7 @@
             tools:replace="screenOrientation"
             />
 
-        <activity android:name=".ContactActivity"
+        <activity android:name=".PlacesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent"/>
 

@@ -41,7 +41,7 @@ dependencies {
     implementation'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.okhttp:okhttp:2.7.2'
-
+    api 'com.github.vipulasri:timelineview:1.0.6'
 
 
     implementation 'com.google.firebase:firebase-core:15.0.2'
