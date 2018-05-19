@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,6 +47,10 @@ public class MainPage extends Fragment {
     @BindView(R.id.developerButton)
     TextView developerButton;
 
+    @BindView(R.id.webredirect)
+    LinearLayout gotoWeb;
+
+
     private GestureDetector gestureDetector;
 
 
@@ -59,6 +64,7 @@ public class MainPage extends Fragment {
         scaleDown(QRCode,1);
         scaleDown(DialogueFlow,2);
         scaleDown(developerButton,3);
+        scaleDown(gotoWeb,4);
 
         gestureDetector = new GestureDetector(getActivity(), new SingleTapConfirm());
 
@@ -100,6 +106,9 @@ public class MainPage extends Fragment {
                             break;
                         case 3:Log.w("Aashis",""+2);
                             break;
+                        case 4:
+                            startActivity(  new Intent( Intent.ACTION_VIEW , Uri.parse( "https://jaipur.manipal.edu/" ) ) );
+                            break;
                     }
                     return true;
                 }
@@ -108,9 +117,9 @@ public class MainPage extends Fragment {
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(V,
-                                    "scaleX", 0.95f);
+                                    "scaleX", 0.9f);
                             ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(V,
-                                    "scaleY", 0.95f);
+                                    "scaleY", 0.9f);
                             scaleDownX.setDuration(300);
                             scaleDownY.setDuration(300);
 
@@ -144,6 +153,8 @@ public class MainPage extends Fragment {
                                     break;
                                 case 3:Log.w("Aashis",""+2);
                                     break;
+                                case 4: startActivity(  new Intent( Intent.ACTION_VIEW , Uri.parse( "https://jaipur.manipal.edu/" ) ) );
+                                break;
                             }
                             break;
                     }
@@ -154,6 +165,7 @@ public class MainPage extends Fragment {
         });
 
     }
+
 
 
 
