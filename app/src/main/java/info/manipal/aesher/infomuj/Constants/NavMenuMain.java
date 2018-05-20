@@ -13,23 +13,25 @@ public class NavMenuMain {
 
     public void engineering(List<ClubProvider> provider){
 
-        ClubProvider p1 = new ClubProvider("C","CSE","NaN",false,-1);
+        ClubProvider p1 = new ClubProvider("C","CSE","NaN",false,6);
         provider.add(p1);
-        p1 = new ClubProvider("I","IT","NaN",false,-1);
+        p1 = new ClubProvider("I","IT","NaN",false,5);
         provider.add(p1);
-        p1 = new ClubProvider("C","CCE","NaN",false,-1);
+        p1 = new ClubProvider("C","CCE","NaN",false,10);
         provider.add(p1);
-        p1 = new ClubProvider("E","Electrical","NaN",false,-1);
+        p1 = new ClubProvider("E","Electrical","NaN",false,1);
         provider.add(p1);
-        p1 = new ClubProvider("E","ECE","NaN",false,-1);
+        p1 = new ClubProvider("E","ECE","NaN",false,8);
         provider.add(p1);
-        p1 = new ClubProvider("M","Mechanical","NaN",false,-1);
+        p1 = new ClubProvider("M","Mechanical","NaN",false,7);
         provider.add(p1);
-        p1 = new ClubProvider("A","Automobile","NaN",false,-1);
+        p1 = new ClubProvider("A","Automobile","NaN",false,2);
         provider.add(p1);
-        p1 = new ClubProvider("M","Mechatronics","NaN",false,-1);
+        p1 = new ClubProvider("M","Mechatronics","NaN",false,9);
         provider.add(p1);
-        p1 = new ClubProvider("C","Chemical","NaN",false,-1);
+        p1 = new ClubProvider("C","Chemical","NaN",false,3);
+        provider.add(p1);
+        p1 = new ClubProvider("C","Civil","NaN",false,4);
         provider.add(p1);
 
     }

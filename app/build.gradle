@@ -53,6 +53,8 @@ dependencies {
 
     implementation 'com.github.stfalcon:chatkit:0.2.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'org.jsoup:jsoup:1.11.2'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

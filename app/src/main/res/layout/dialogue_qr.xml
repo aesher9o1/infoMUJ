@@ -29,7 +29,6 @@
         android:layout_width="30dip"
         android:layout_height="30dip"
         android:layout_centerHorizontal="true" />
-
     <WebView
         android:layout_marginTop="5dip"
         android:id="@+id/webview"

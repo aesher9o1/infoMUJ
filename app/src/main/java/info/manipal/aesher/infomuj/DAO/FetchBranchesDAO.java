@@ -38,13 +38,11 @@ public class FetchBranchesDAO {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-//                    Log.w("Okay","Okay");
                     Map<String, Branch> retrievedBranches = new HashMap<>();
                     for (DataSnapshot branch : dataSnapshot.getChildren()) {
 
                         Branch branchValue = branch.getValue(Branch.class);
-                        retrievedBranches.put(branch.getKey(), branchValue);
-//                        Log.w("DAO", branchValue.name);
+                        retrievedBranches.put(branch.getKey(), branchValue);;
                     }
                     matchedBranchesFuture.set(retrievedBranches);
                 } else {

@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import info.manipal.aesher.infomuj.Adapters.ClubAdapter;
 import info.manipal.aesher.infomuj.Adapters.ClubProvider;
+import info.manipal.aesher.infomuj.Adapters.CustomAlertDialog;
 import info.manipal.aesher.infomuj.Constants.InitialData;
 import info.manipal.aesher.infomuj.Constants.NavMenuMain;
 import info.manipal.aesher.infomuj.DAO.Branch;
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     MainPage fragmentMainPage;
     DialogueFlow dialogueFlow;
+    View alertLayout;
+
+//    AlertDialog dialog;
+    CustomAlertDialog customDialog;
 
     SharedPreferences prefs = null;
 
@@ -85,14 +91,20 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.notifications)
     public void infalteDialogue(){
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.dialogue_qr, null);
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setView(alertLayout);
-        AlertDialog dialog = alert.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+//        dialog.show();
+        customDialog.show();
     }
+
+
+    public void initialiseDialog(){
+        LayoutInflater inflater = getLayoutInflater();
+        alertLayout = inflater.inflate(R.layout.dialogue_qr, null);
+//        customDialog.setView(alertLayout);
+        customDialog = new CustomAlertDialog(this, alertLayout);
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+    }
+
 
     ViewGroup transitionsContainer;
 
@@ -104,52 +116,20 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         isCameraPermission();
         replaceFrag();
+        initialiseDialog();
 
         prefs = getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
 
-        if (prefs.getBoolean("firstrun", true)) {
-            final Future<Map<String, Branch>> listFutureForBranches = FetchBranchesDAO
-                    .getInstance()
-                    .getBranches();
-
-            SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
-            branchSharedPrefs.putString("branches", new InitialData().branches);
-
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        while ((!listFutureForBranches.isDone())){
-                            Thread.sleep(500);
-                        }
-                        Map<String, Branch> branchMap = new HashMap<String, Branch>();
-                        branchMap = listFutureForBranches.get();
-                        StringBuilder output = new StringBuilder();
-                        for (Map.Entry<String, Branch> entry : branchMap.entrySet())
-                        {   Branch current = entry.getValue();
-                            output.append("#"+current.name+"#"+current.shortOverview+"#"+current.longOverview+"#"+current.img_url_1+"#"+current.img_url_2+"#"+current.img_url_3);
-                        }
-                        SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
-                        branchSharedPrefs.putString("branches", output.toString());
-
-                    }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-            });
-        }
+        FirstRun();
+        FetchFromFirebase();
 
         contentFillers = new NavMenuMain();
 
 
         //preperaing enginering
         List<ClubProvider> provider = new ArrayList<>();
-        ClubAdapter adapter = new ClubAdapter(getApplicationContext(),provider);
+
+        ClubAdapter adapter = new ClubAdapter(getApplicationContext(),provider,customDialog, "BRANCH");
         LinearLayoutManager layoutManager =  new GridLayoutManager(getApplicationContext(), 4);
         engineering.setLayoutManager(layoutManager);
         engineering.setHasFixedSize(true);
@@ -162,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
         //preperaing clubs
         List<ClubProvider> providerClub = new ArrayList<>();
-        ClubAdapter adapterClub = new ClubAdapter(getApplicationContext(),providerClub);
-        adapterClub = new ClubAdapter(getApplicationContext(),providerClub);
+        ClubAdapter adapterClub = new ClubAdapter(getApplicationContext(),providerClub,customDialog, "CLUB");
         layoutManager =  new GridLayoutManager(getApplicationContext(), 4);
         clubs.setLayoutManager(layoutManager);
         clubs.setHasFixedSize(true);
@@ -263,5 +242,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void FirstRun(){
+
+        if (prefs.getBoolean("firstrun", true)) {
+
+            SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
+            branchSharedPrefs.putString("branches", new InitialData().branches);
+            branchSharedPrefs.commit();
+
+            branchSharedPrefs.putBoolean("firstrun", false);
+
+        }
+
+    }
+
+    public void FetchFromFirebase(){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                final Future<Map<String, Branch>> listFutureForBranches = FetchBranchesDAO
+                        .getInstance()
+                        .getBranches();
+
+                try{
+                    while ((!listFutureForBranches.isDone())){
+                        Thread.sleep(500);
+                    }
+                    Map<String, Branch> branchMap = listFutureForBranches.get();
+                    StringBuilder output = new StringBuilder();
+                    for (Map.Entry<String, Branch> entry : branchMap.entrySet())
+                    {   Branch current = entry.getValue();
+                        output.append("#"+current.name+"#"+current.shortOverview+"#"+current.longOverview+"#"+current.img_url_1+"#"+current.img_url_2+"#"+current.img_url_3);
+                    }
+                    SharedPreferences.Editor branchSharedPrefs  = prefs.edit();
+                    branchSharedPrefs.putString("branches", output.toString()).commit();
+
+
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+    }
 
 }
