@@ -29,30 +29,176 @@
         android:text="Meet the developers"/>
 
     <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ashContainer"
         android:gravity="center_horizontal|center_vertical"
-    android:layout_weight="0.8"
+    android:layout_weight="0.9"
     android:background="@color/materialBlue"
     android:layout_width="match_parent"
     android:layout_height="0dip">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="150dip"
+            android:layout_marginTop="-40dip"
+            android:id="@+id/aashiskumar"
+            android:layout_height="150dip"
+            android:src="@drawable/me_me"
+            app:civ_border_width="3dip"
+            app:civ_border_color="@color/white"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/aashisInfo"
+            android:orientation="vertical"
+            android:layout_marginTop="11dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="Aashis Kumar"
+                android:textColor="@color/white"
+                />
+
+            <LinearLayout
+                android:alpha="0.8"
+                android:layout_marginTop="20dip"
+                android:layout_marginStart="50dip"
+                android:layout_marginEnd="50dip"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ashGit"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+
+                        android:tint="@color/white"
+                        android:src="@drawable/github"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ashLink"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+
+                        android:tint="@color/white"
+                        android:src="@drawable/linkdin"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ashEmail"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:tint="@color/white"
+                        android:src="@drawable/google"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
 
 </LinearLayout>
 
     <LinearLayout
-        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:id="@+id/viduContainer"
+        android:gravity="center"
         android:background="@color/white"
-        android:layout_weight="1.2"
+        android:layout_weight="1.1"
         android:layout_width="match_parent"
         android:layout_height="0dip">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="40dip"
             android:layout_width="150dip"
+            android:layout_marginTop="-40dip"
             android:id="@+id/viduujain"
             android:layout_height="150dip"
             android:src="@drawable/viduujain"
-            app:civ_border_width="2dp"
-            app:civ_border_color="@color/materialBlue"/>
+            app:civ_border_width="3dip"
+            app:civ_border_color="@color/gray"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/vidhyanshu"
+            android:orientation="vertical"
+            android:layout_marginTop="11dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="Vidhyanshu Jain"
+                android:textColor="@color/lightGrey"
+               />
+
+            <LinearLayout
+                android:alpha="0.8"
+                android:layout_marginTop="20dip"
+                android:layout_marginStart="50dip"
+                android:layout_marginEnd="50dip"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/viduGit"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+
+                        android:tint="@color/gray"
+                        android:src="@drawable/github"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/viduLink"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+
+                        android:tint="@color/gray"
+                        android:src="@drawable/linkdin"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/viduEmail"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+
+                        android:tint="@color/gray"
+                        android:src="@drawable/google"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </LinearLayout>
