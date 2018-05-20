@@ -316,6 +316,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
             customDialog.SetWebView(info);
             speakOut(shortOverview);
         }
+
     }
 
 
