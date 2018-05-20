@@ -55,19 +55,19 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder>{
         @Override
         public void onClick(View v) {
 
-            dialog.show();
-            if(category.equals("BRANCH")){
-                int index = provider.getIndex();
-                SharedPreferences prefs = myContext.getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
-                String branches = prefs.getString("branches",null);
-                String branchArray[] = branches.split("#");
-                StringBuilder infoFill = new StringBuilder();
-                infoFill.append("<b>"+branchArray[((index-1)*6)+1]+"</b><br>");
-                infoFill.append(branchArray[((index-1)*6)+2]);
-                dialog.SetWebView(infoFill.toString());
-//                dialog.ProgressBarVisible(false);
-
-            }
+//            dialog.show();
+//            if(category.equals("BRANCH")){
+//                int index = provider.getIndex();
+//                SharedPreferences prefs = myContext.getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
+//                String branches = prefs.getString("branches",null);
+//                String branchArray[] = branches.split("#");
+//                StringBuilder infoFill = new StringBuilder();
+//                infoFill.append("<b>"+branchArray[((index-1)*6)+1]+"</b><br>");
+//                infoFill.append(branchArray[((index-1)*6)+2]);
+//                dialog.SetWebView(infoFill.toString());
+////                dialog.ProgressBarVisible(false);
+//
+//            }
         }
     });
 

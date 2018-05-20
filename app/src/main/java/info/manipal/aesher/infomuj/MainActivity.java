@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     DialogueFlow dialogueFlow;
     View alertLayout;
 
-//    AlertDialog dialog;
+      AlertDialog dialog;
     CustomAlertDialog customDialog;
 
     SharedPreferences prefs = null;
@@ -87,12 +91,64 @@ public class MainActivity extends AppCompatActivity {
         sothreeLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
-    TextView heading;
+    String appPackageName= "";
 
+    TextView heading;
+    ImageView blinkingHeart;
+    Boolean colored = false;
     @OnClick(R.id.notifications)
     public void infalteDialogue(){
-//        dialog.show();
-        customDialog.show();
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.option_dialogue, null);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setView(alertLayout);
+        dialog = alert.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        blinkingHeart = alertLayout.findViewById(R.id.heart);
+        blink();
+
+
+        LinearLayout rate,mujfiles,feedback;
+
+        rate = alertLayout.findViewById(R.id.rate);
+        mujfiles = alertLayout.findViewById(R.id.muj);
+        feedback = alertLayout.findViewById(R.id.feedback);
+
+
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenPlay(appPackageName);
+            }
+        });
+
+        mujfiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenPlay("in.siddharthjaidka.mujfiles");
+            }
+        });
+
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:aashiskumar986@gmail.com")));
+            }
+        });
+
+    }
+
+
+
+    public void OpenPlay(String url){
+
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + url)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + url)));
+        }
     }
 
 
@@ -106,6 +162,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void blink(){
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int timeToBlink = 500;    //in milissegunds
+                try{Thread.sleep(timeToBlink);}catch (Exception e) {}
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!colored){
+                            blinkingHeart.animate().scaleX(0.4f).scaleY(0.4f).setDuration(500).start();
+                            colored= true;
+                        }
+                        else {
+                            blinkingHeart.animate().scaleX(1f).scaleY(1f).setDuration(500).start();
+                            colored= false;
+                        }
+                        if(dialog.isShowing()){
+                            blink();
+                        }
+
+                    }
+                });
+            }
+        }).start();
+    }
+
     ViewGroup transitionsContainer;
 
 
@@ -117,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         isCameraPermission();
         replaceFrag();
         initialiseDialog();
-
+        appPackageName = getPackageName();
         prefs = getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
 
         FirstRun();

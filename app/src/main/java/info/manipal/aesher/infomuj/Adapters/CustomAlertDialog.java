@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import info.manipal.aesher.infomuj.R;
 
@@ -21,14 +25,22 @@ public class CustomAlertDialog extends AlertDialog {
     View layout;
     WebView webView;
     ProgressBar progressBar;
+    ImageView image;
+
+
+
+
     public CustomAlertDialog(@NonNull Context context, View layout) {
         super(context);
         this.context = context;
         this.setView(layout);
         this.layout = layout;
         webView = layout.findViewById(R.id.webview);
+        image = layout.findViewById(R.id.waitingImage);
         progressBar = layout.findViewById(R.id.progressBar1);
     }
+
+
 
     public void SetWebView(String str){
         webView.loadData(str, "text/html", null);
@@ -41,12 +53,28 @@ public class CustomAlertDialog extends AlertDialog {
         });
     }
 
+
+    public void removeimage(){
+        image.animate().scaleX(0f).scaleY(0f).setDuration(300).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                image.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+            }
+        }).start();
+
+    }
+
+
+
     public void ProgressBarVisible(Boolean mode){
         if(mode){
             progressBar.setVisibility(View.VISIBLE);
+            image.setVisibility(View.VISIBLE);
         }
         else{
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
+            removeimage();
         }
     }
 

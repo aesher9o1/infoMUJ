@@ -10,4 +10,5 @@
     <color name="lightGrey">#5F6368</color>
     <color name="materialBlue">#00ccff</color>
     <color name="materialGreen">#96c93d</color>
+    <color name="materialRed">#d32f2f</color>
 </resources>

@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -111,34 +112,57 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
         final IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
 
-        if(requestCode!=0) {
+        if(requestCode!=0&&data!=null&&result!=null) {
             LayoutInflater inflater = getLayoutInflater();
             alertLayout = inflater.inflate(R.layout.dialogue_qr, null);
             customDialog = new CustomAlertDialog(getContext(), alertLayout);
             customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             customDialog.show();
-            final int index = Integer.valueOf(result.getContents());
-
-            SharedPreferences prefs = getContext().getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
-            String branches = prefs.getString("branches", null);
-            final String branchArray[] = branches.split("#");
-            if(branchArray[((index - 1) * 6) + 3].contains("http")){
-                final StringBuilder infoFill = new StringBuilder();
-                infoFill.append("<div style=\"text-align:center;font-size:18px;\"><b>" + branchArray[((index - 1) * 6) + 1] + "</b></div><br>");
+            try{
+                final int index = Integer.valueOf(result.getContents());
+                SharedPreferences prefs = getContext().getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
+                String branches = prefs.getString("branches", null);
+                final String branchArray[] = branches.split("#");
 
 
-                final String url = branchArray[((index - 1) * 6) + 3].trim();
-                newTask myTask = new newTask();
-                myTask.execute(url,infoFill.toString(), branchArray[((index - 1) * 6) + 2]);
+                Log.w("Indexes", ""+index+"other"+branchArray.length);
+
+                //Todo Vidhyanshu Jain
+            
+                if(((index - 1) * 6) + 3<branchArray.length){
+                    if(branchArray[((index - 1) * 6) + 3].contains("http")){
+                        final StringBuilder infoFill = new StringBuilder();
+                        infoFill.append("<div style=\"text-align:center;font-size:18px;\"><b>" + branchArray[((index - 1) * 6) + 1] + "</b></div><br>");
+
+
+                        final String url = branchArray[((index - 1) * 6) + 3].trim();
+                        newTask myTask = new newTask();
+                        myTask.execute(url,infoFill.toString(), branchArray[((index - 1) * 6) + 2]);
+
+                    }
+                    else {
+                        Log.w("Index", "I was here");
+                        StringBuilder infoFill = new StringBuilder();
+                        infoFill.append("<div style=\"text-align:center;font-size:18px;\"><b>" + branchArray[((index - 1) * 6) + 1] + "</b></div><br>");
+                        infoFill.append(branchArray[((index - 1) * 6) + 3]);
+                        customDialog.SetWebView(infoFill.toString());
+                        speakOut(branchArray[((index - 1) * 6) + 2]);
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(),"Invalid QR Code Scanned",Toast.LENGTH_SHORT).show();
+                    customDialog.dismiss();
+                }
+
             }
-            else {
-                StringBuilder infoFill = new StringBuilder();
-                infoFill.append("<div style=\"text-align:center;font-size:18px;\"><b>" + branchArray[((index - 1) * 6) + 1] + "</b></div><br>");
-                infoFill.append(branchArray[((index - 1) * 6) + 3]);
-                customDialog.SetWebView(infoFill.toString());
-                speakOut(branchArray[((index - 1) * 6) + 2]);
+            catch (NumberFormatException e){
+                Toast.makeText(getContext(),"Invalid QR Code Scanned",Toast.LENGTH_SHORT).show();
+                customDialog.dismiss();
             }
+
+
+
         }
 
     }
@@ -269,9 +293,15 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
         super.onDestroy();
     }
 
-    private void speakOut(String text) {
+    private void speakOut(final String text) {
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,null);
+            }
+        };handler.postDelayed(runnable,1000);
 
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,null);
     }
 
 
@@ -313,8 +343,16 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            customDialog.SetWebView(info);
-            speakOut(shortOverview);
+
+            if(info!=null){
+                customDialog.SetWebView(info);
+                speakOut(shortOverview);
+
+            }
+
+
+
+
         }
 
     }
