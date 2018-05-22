@@ -126,10 +126,8 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
                 final String branchArray[] = branches.split("#");
 
 
-                Log.w("Indexes", ""+index+"other"+branchArray.length);
-
                 //Todo Vidhyanshu Jain
-            
+
                 if(((index - 1) * 6) + 3<branchArray.length){
                     if(branchArray[((index - 1) * 6) + 3].contains("http")){
                         final StringBuilder infoFill = new StringBuilder();
@@ -140,9 +138,10 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
                         newTask myTask = new newTask();
                         myTask.execute(url,infoFill.toString(), branchArray[((index - 1) * 6) + 2]);
 
+                        Log.w("Index",url);
+
                     }
                     else {
-                        Log.w("Index", "I was here");
                         StringBuilder infoFill = new StringBuilder();
                         infoFill.append("<div style=\"text-align:center;font-size:18px;\"><b>" + branchArray[((index - 1) * 6) + 1] + "</b></div><br>");
                         infoFill.append(branchArray[((index - 1) * 6) + 3]);

@@ -53,6 +53,12 @@ public class WayPoints extends Fragment {
             contentFillers.Gym(provider);
         else if(passedString.equals("library"))
             contentFillers.Library(provider);
+        else if (passedString.equals("admin"))
+            contentFillers.Admin(provider);
+        else if (passedString.equals("food"))
+            contentFillers.Food(provider);
+        else if (passedString.equals("finance"))
+            contentFillers.Finance(provider);
 
         return v;
     }

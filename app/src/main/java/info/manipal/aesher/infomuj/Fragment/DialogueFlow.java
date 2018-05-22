@@ -242,6 +242,8 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
     @Override
     public void onError(AIError error) {
+        dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundbutton3));
 
     }
 
@@ -259,6 +261,8 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
     @Override
     public void onListeningCanceled() {
+        dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundbutton3));
 
     }
 
