@@ -1,5 +1,6 @@
 package info.manipal.aesher.infomuj;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -14,9 +15,9 @@ public class PlacesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places);
-
         ButterKnife.bind(this);
         replaceFrag();
     }

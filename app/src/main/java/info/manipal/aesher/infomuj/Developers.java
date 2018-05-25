@@ -1,9 +1,11 @@
 package info.manipal.aesher.infomuj;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -79,6 +81,7 @@ public class Developers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developers);
         ButterKnife.bind(this);
@@ -86,6 +89,7 @@ public class Developers extends AppCompatActivity {
         ashVisible = false;
         setLocked(vidhyanshuJain);
         setLocked(aashiskumar);
+
 
         aashiskumar.setOnClickListener(new View.OnClickListener() {
             @Override

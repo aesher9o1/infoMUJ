@@ -12,7 +12,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".infoMUJ">
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -36,11 +37,11 @@
             tools:replace="screenOrientation" />
         <activity
             android:name=".PlacesActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
 
         <activity android:name=".Developers"
-            android:theme="@style/blueStatus"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/blueStatus"/>
     </application>
 
 </manifest>

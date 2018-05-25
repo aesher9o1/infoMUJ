@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.transitionseverywhere.ChangeText;
 
@@ -195,19 +198,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         isCameraPermission();
         replaceFrag();
         initialiseDialog();
-        appPackageName = getPackageName();
-        prefs = getSharedPreferences("com.manipal.infomuj", MODE_PRIVATE);
 
-        FirstRun();
-        FetchFromFirebase();
 
         contentFillers = new NavMenuMain();
+
 
 
         //preperaing enginering
@@ -241,6 +242,13 @@ public class MainActivity extends AppCompatActivity {
 
         dialogueFlow = (DialogueFlow) getSupportFragmentManager().findFragmentByTag("Chatbot");
         contactListner();
+
+
+
+
+
+
+
 
     }
 
