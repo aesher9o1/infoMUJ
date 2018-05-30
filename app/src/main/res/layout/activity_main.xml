@@ -51,7 +51,7 @@
             <FrameLayout
                 android:id="@+id/mainFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             </ScrollView>
 
@@ -136,10 +136,17 @@ android:focusable="true"
 android:background="@color/background"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dip"
+    >
 
     <android.support.v7.widget.CardView
         android:layout_marginTop="9dip"
@@ -221,12 +228,49 @@ android:layout_height="match_parent">
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="9dip"
+        android:layout_marginStart="5dip"
+        android:layout_marginBottom="5dip"
+        sothree:cardCornerRadius="7dip"
+        sothree:cardBackgroundColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="15dip"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#212121"
+                android:textSize="13sp"
+                android:layout_marginStart="5dip"
+                android:layout_marginBottom="3dip"
+                android:text="MUJ FAQs"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/college"
+                android:paddingBottom="4dip"
+                android:layout_marginStart="16dip"
+                android:layout_marginEnd="16dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
+
+
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
 
 
 
 </LinearLayout>
+    </ScrollView>
 </FrameLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>

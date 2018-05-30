@@ -14,6 +14,8 @@
         android:layout_height="52dip"
         android:background="@drawable/rounded_shape"/>
     <TextView
+        android:gravity="center_horizontal|center"
+        android:layout_gravity="center_horizontal|center"
         android:id="@+id/clubTitle"
         android:layout_marginTop="3dip"
         android:textColor="#707070"

@@ -179,4 +179,5 @@ public class Developers extends AppCompatActivity {
         v.setColorFilter(null);
         v.setImageAlpha(255);
     }
+
 }

@@ -81,7 +81,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
 
     CustomAlertDialog customDialog;
 
-    SharedPreferences prefs = null;
+
 
     private TextToSpeech tts;
     DatabaseReference ref;
@@ -318,7 +318,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener{
     }
 
 
-    class  newTask extends AsyncTask<String, Void, String> {
+    public class  newTask extends AsyncTask<String, Void, String> {
 
         String info= "";
         String shortOverview="";

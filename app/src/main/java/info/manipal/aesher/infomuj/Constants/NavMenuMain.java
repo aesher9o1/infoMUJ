@@ -40,12 +40,23 @@ public class NavMenuMain {
 
 
     public void clubs(List<ClubProvider> provider){
-        ClubProvider p1 = new ClubProvider("I","IEEE SB MUJ","NaN",false,-1);
+        ClubProvider p1 = new ClubProvider("A","ACM MUJ","NaN",false,29);
         provider.add(p1);
-        p1 = new ClubProvider("A","ACM MUJ","NaN",false,-1);
+        p1 = new ClubProvider("A","Aperture","NaN",false,25);
         provider.add(p1);
-        p1 = new ClubProvider("I","IAESTE MUJ","NaN",false,-1);
+        p1 = new ClubProvider("C","Cinefilia","NaN",false,23);
         provider.add(p1);
+        p1 = new ClubProvider("I","IAESTE MUJ","NaN",false,22);
+        provider.add(p1);
+        p1 = new ClubProvider("I","IEEE SB MUJ","NaN",false,27);
+        provider.add(p1);
+        p1 = new ClubProvider("L","Litmus","NaN",false,26);
+        provider.add(p1);
+        p1 = new ClubProvider("R","RPM","NaN",false,28);
+        provider.add(p1);
+        p1 = new ClubProvider("T","TMC","NaN",false,24);
+        provider.add(p1);
+
     }
 
     public void contact(List<ContactProvider> provider, Context context){
@@ -59,6 +70,31 @@ public class NavMenuMain {
         provider.add(p1);
         p1 = new ContactProvider("Student Library","library", R.drawable.ic_library);
         provider.add(p1);
+    }
+
+    public void college(List<ClubProvider> providerCollege) {
+        ClubProvider p1 = new ClubProvider("A","About MUJ","NaN",false,14);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("A","Admission","NaN",false,15);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("C","Campus Facilities","NaN",false,16);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("C","College Fee","NaN",false,11);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("D","Directors","NaN",false,21);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("H","Hostel Fee","NaN",false,13);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("M","Medical Facilities","NaN",false,19);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("P","Placement","NaN",false,20);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("R","Room Facilities","NaN",false,17);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("S","Scholarships","NaN",false,30);
+        providerCollege.add(p1);
+        p1 = new ClubProvider("S","Sports Facilities","NaN",false,18);
+        providerCollege.add(p1);
     }
 }
 

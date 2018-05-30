@@ -174,7 +174,8 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
         List<Message> randomShit;
         randomShit = new ArrayList<>();
         author = new Author("1","Aashis","hey");
-        message = new Message("1","Welcome User, I am here to help you with your queries",author);
+        message = new Message("1","Welcome User, Tap on initiate chat to get a conversation started",author);
+        speakOut("Welcome User, Tap on initiate chat to get a conversation started");
         randomShit.add(message);
         adapter = new MessagesListAdapter<>("2", null);
         messagesList.setAdapter(adapter);
