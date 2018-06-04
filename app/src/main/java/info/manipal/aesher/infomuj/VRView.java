@@ -58,12 +58,20 @@ public class VRView extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        panoramaView.pauseRendering();
+    }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        panoramaView.shutdown();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        panoramaView.resumeRendering();
     }
 
     static class ImageLoaderTask extends AsyncTask<AssetManager, Void, Bitmap> {
