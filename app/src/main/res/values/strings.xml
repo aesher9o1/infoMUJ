@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">InfoMuj</string>
+
+    <!-- Fragment Main -->
+    <string name="welcome">Welcome to Manipal University Jaipur</string>
+    <string name="qrCode">Scan QR code</string>
+    <string name="bot">Talk to MUJ Bot</string>
+    <string name="camera">Manipal 360</string>
+
+
 </resources>

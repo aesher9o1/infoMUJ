@@ -1,12 +1,9 @@
 package info.manipal.aesher.infomuj.Adapters;
 
-import android.text.format.DateUtils;
-
 import com.stfalcon.chatkit.commons.models.IMessage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Message implements IMessage {
@@ -17,8 +14,7 @@ public class Message implements IMessage {
     private Author author;
 
 
-
-    public Message(String id,  String text, Author author) {
+    public Message(String id, String text, Author author) {
         this.id = id;
         this.text = text;
         this.author = author;

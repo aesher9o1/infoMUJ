@@ -1,24 +1,15 @@
 package info.manipal.aesher.infomuj.Adapters;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import info.manipal.aesher.infomuj.R;
 
@@ -28,8 +19,6 @@ public class CustomAlertDialog extends AlertDialog {
     WebView webView;
     ProgressBar progressBar;
     ImageView image;
-
-
 
 
     public CustomAlertDialog(@NonNull Context context, View layout) {
@@ -43,19 +32,19 @@ public class CustomAlertDialog extends AlertDialog {
     }
 
 
+    public void SetWebView(String str) {
 
-    public void SetWebView(String str){
 
-
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 ProgressBarVisible(false);
             }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                super.shouldOverrideUrlLoading(view,request);
+                super.shouldOverrideUrlLoading(view, request);
                 Intent intent = new Intent(Intent.ACTION_VIEW, request.getUrl());
                 view.getContext().startActivity(intent);
                 return true;
@@ -67,7 +56,7 @@ public class CustomAlertDialog extends AlertDialog {
     }
 
 
-    public void removeimage(){
+    public void removeimage() {
         image.animate().scaleX(0f).scaleY(0f).setDuration(300).withEndAction(new Runnable() {
             @Override
             public void run() {
@@ -79,13 +68,11 @@ public class CustomAlertDialog extends AlertDialog {
     }
 
 
-
-    public void ProgressBarVisible(Boolean mode){
-        if(mode){
+    public void ProgressBarVisible(Boolean mode) {
+        if (mode) {
             progressBar.setVisibility(View.VISIBLE);
             image.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             progressBar.setVisibility(View.GONE);
             removeimage();
         }

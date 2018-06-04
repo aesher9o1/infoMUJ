@@ -29,19 +29,19 @@ public class Places extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_places,container,false);
-        ButterKnife.bind(this,v);
+        View v = inflater.inflate(R.layout.fragment_places, container, false);
+        ButterKnife.bind(this, v);
 
 
-        contentFillers= new NavMenuMain();
+        contentFillers = new NavMenuMain();
         List<ContactProvider> provider = new ArrayList<>();
-        ContactAdapter adapter = new ContactAdapter(getActivity(),provider);
-        LinearLayoutManager layoutManager =  new LinearLayoutManager(getContext());
+        ContactAdapter adapter = new ContactAdapter(getActivity(), provider);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         contactRecycler.setLayoutManager(layoutManager);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setAdapter(adapter);
         contactRecycler.setNestedScrollingEnabled(false);
-        contentFillers.contact(provider,getContext());
+        contentFillers.contact(provider, getContext());
 
         return v;
     }

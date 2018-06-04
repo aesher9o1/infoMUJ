@@ -1,33 +1,35 @@
 package info.manipal.aesher.infomuj.Adapters;
 
 public class ClubProvider {
-    private String ButtonText,LayoutTitle,WebsiteLink;
+    private String ButtonText, LayoutTitle, WebsiteLink;
     private boolean isMoreInfo;
-    private  int index;
+    private int index;
 
-    public  ClubProvider(String ButtonText, String LayoutTitle, String WebsiteLink, boolean isMoreInfo,int index){
+    public ClubProvider(String ButtonText, String LayoutTitle, String WebsiteLink, boolean isMoreInfo, int index) {
         this.ButtonText = ButtonText;
         this.LayoutTitle = LayoutTitle;
         this.WebsiteLink = WebsiteLink;
         this.isMoreInfo = isMoreInfo;
-        this.index= index;
+        this.index = index;
     }
-    public String getButtonText(){
+
+    public String getButtonText() {
         return ButtonText;
     }
-    public String getLayoutTitle(){
+
+    public String getLayoutTitle() {
         return LayoutTitle;
     }
 
-    public String getWebsiteLink(){
-        return  WebsiteLink;
+    public String getWebsiteLink() {
+        return WebsiteLink;
     }
 
-    public  boolean getisMoreInfo(){
+    public boolean getisMoreInfo() {
         return isMoreInfo;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return index;
     }
 }

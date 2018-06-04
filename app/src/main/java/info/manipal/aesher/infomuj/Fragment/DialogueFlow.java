@@ -1,14 +1,7 @@
 package info.manipal.aesher.infomuj.Fragment;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,15 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.transitionseverywhere.ChangeText;
-import com.transitionseverywhere.Recolor;
-import com.transitionseverywhere.TransitionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,34 +37,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.manipal.aesher.infomuj.Adapters.Author;
 import info.manipal.aesher.infomuj.Adapters.Message;
-import info.manipal.aesher.infomuj.MainActivity;
 import info.manipal.aesher.infomuj.R;
 
 
-public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.OnInitListener, MessagesListAdapter.OnLoadMoreListener{
+public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.OnInitListener, MessagesListAdapter.OnLoadMoreListener {
 
+    public static final String textWhenMainScreen = "Info Muj";
+    public static final String textWhenDialogueScreen = "Welcome To MUJ ";
     TextView heading;
     ViewGroup transitionsContainer;
     Button dialogueFlowButton;
-    public static final String textWhenMainScreen = "Info Muj";
-    public static final String textWhenDialogueScreen = "Welcome To MUJ ";
     AIService aiService;
-    private TextToSpeech tts;
-    private GestureDetector gestureDetector;
-
-
-
     @BindView(R.id.messagesList)
     MessagesList messagesList;
-    String[] parts ;
-
-    Author author; Message message;MessagesListAdapter<Message> adapter;
+    String[] parts;
+    Author author;
+    Message message;
+    MessagesListAdapter<Message> adapter;
+    private TextToSpeech tts;
+    private GestureDetector gestureDetector;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_chatbot,container,false);
-        ButterKnife.bind(this,v);
+        View v = inflater.inflate(R.layout.fragment_chatbot, container, false);
+        ButterKnife.bind(this, v);
 
         isSoundPermission();
 
@@ -98,7 +83,7 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
         config.setRecognizerStopSound(getResources().openRawResourceFd(R.raw.test_stop));
         config.setRecognizerCancelSound(getResources().openRawResourceFd(R.raw.test_cancel));
 
-        aiService = AIService.getService(getContext(),config);
+        aiService = AIService.getService(getContext(), config);
         aiService.setListener(this);
 
         gestureDetector = new GestureDetector(getActivity(), new SingleTapConfirm());
@@ -110,52 +95,43 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
             public void run() {
                 welcomeMessage();
             }
-        };handler.postDelayed(runnable,500);
+        };
+        handler.postDelayed(runnable, 500);
 
         dialogueFlowButton.setOnTouchListener(null);
         dialogueFlowButton.setOnClickListener(null);
 
         dialogueFlowButton.setOnTouchListener(new View.OnTouchListener() {
-          @Override
-          public boolean onTouch(View view, MotionEvent motionEvent) {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
 
-              if (gestureDetector.onTouchEvent(motionEvent)) {
-                  dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundedbutton));
-                  return true;
-              }
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
+                    return true;
+                } else {
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
 
-              else{
-                  switch (motionEvent.getAction()) {
-                      case MotionEvent.ACTION_DOWN:
-
-                              aiService.startListening();
-                              dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
-                              dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundedbutton2));
+                            aiService.startListening();
+                            dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
+                            dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton2));
 
 
-                          break;
+                            break;
 
-                      case MotionEvent.ACTION_UP:
-                          dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-                          dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundedbutton));
-                          break;
-                  }
+                        case MotionEvent.ACTION_UP:
+                            dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+                            dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
+                            break;
+                    }
 
-              }
+                }
 
-              return true;
-          }
-      });
-
-
-
-
-
-
-
+                return true;
+            }
+        });
 
         return v;
-
 
     }
 
@@ -169,34 +145,33 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
     }
 
-    public void welcomeMessage(){
+    public void welcomeMessage() {
 
         List<Message> randomShit;
         randomShit = new ArrayList<>();
-        author = new Author("1","Aashis","hey");
-        message = new Message("1","Welcome User, Tap on initiate chat to get a conversation started",author);
+        author = new Author("1", "Aashis", "hey");
+        message = new Message("1", "Welcome User, Tap on initiate chat to get a conversation started", author);
         speakOut("Welcome User, Tap on initiate chat to get a conversation started");
         randomShit.add(message);
         adapter = new MessagesListAdapter<>("2", null);
         messagesList.setAdapter(adapter);
-        adapter.addToEnd(randomShit,true);
+        adapter.addToEnd(randomShit, true);
 
     }
 
 
-
-    public void replaceText(){
+    public void replaceText() {
         com.transitionseverywhere.TransitionManager.beginDelayedTransition(transitionsContainer,
                 new ChangeText().setChangeBehavior(3));
 
-        if(heading.getText().toString().equals(textWhenMainScreen))
+        if (heading.getText().toString().equals(textWhenMainScreen))
             heading.setText(textWhenDialogueScreen);
         else
             heading.setText(textWhenMainScreen);
 
     }
 
-    public void replaceButton(){
+    public void replaceButton() {
         dialogueFlowButton.animate().scaleX(0f).scaleY(0f).setDuration(300).start();
         Handler delayForButtonChange = new Handler();
         Runnable runnable = new Runnable() {
@@ -206,35 +181,35 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
                 dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.ic_mic), null, null, null);
                 dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
             }
-        }; delayForButtonChange.postDelayed(runnable,301);
+        };
+        delayForButtonChange.postDelayed(runnable, 301);
     }
 
     @Override
     public void onResult(AIResponse result) {
 
-        String string = ""+result;
+        String string = "" + result;
 
-        if(string.contains("resolvedQuery")){
-            parts  = string.split(",");
-            parts[3] = parts[3].replace("resolvedQuery='","");
-            parts[3]= parts[3].replace("'}","");
+        if (string.contains("resolvedQuery")) {
+            parts = string.split(",");
+            parts[3] = parts[3].replace("resolvedQuery='", "");
+            parts[3] = parts[3].replace("'}", "");
         }
-
 
 
         Log.w("API_query", string);
 
 
-        if(parts[3]!=null && result.getResult()!=null){
-            author = new Author("2","Chatbot","hey");
-            message = new Message("2",parts[3],author);
-            adapter.addToStart(message,true);
+        if (parts[3] != null && result.getResult() != null) {
+            author = new Author("2", "Chatbot", "hey");
+            message = new Message("2", parts[3], author);
+            adapter.addToStart(message, true);
             ai.api.model.Result RESULT = result.getResult();
-            String textS= RESULT.getFulfillment().getSpeech();
-            Log.w("API_result",textS);
-            author = new Author("1","Chatbot","hey");
-            message = new Message("1",textS,author);
-            adapter.addToStart(message,true);
+            String textS = RESULT.getFulfillment().getSpeech();
+            Log.w("API_result", textS);
+            author = new Author("1", "Chatbot", "hey");
+            message = new Message("1", textS, author);
+            adapter.addToStart(message, true);
             speakOut(textS);
         }
 
@@ -244,7 +219,7 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
     @Override
     public void onError(AIError error) {
         dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundbutton3));
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundbutton3));
 
     }
 
@@ -256,28 +231,29 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
     @Override
     public void onListeningStarted() {
         dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundedbutton2));
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton2));
 
     }
 
     @Override
     public void onListeningCanceled() {
         dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundbutton3));
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundbutton3));
 
     }
 
     private void speakOut(String text) {
 
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null,null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        }
     }
-
 
 
     @Override
     public void onListeningFinished() {
         dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.roundedbutton));
+        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
 
     }
 
@@ -295,8 +271,8 @@ public class DialogueFlow extends Fragment implements AIListener,TextToSpeech.On
 
     @Override
     public void onInit(int status) {
-        if(status == TextToSpeech.SUCCESS){
-            Locale loc = new Locale ("en", "IN");
+        if (status == TextToSpeech.SUCCESS) {
+            Locale loc = new Locale("en", "IN");
             tts.setLanguage(loc);
             tts.setPitch(1.0f);
             tts.setSpeechRate(1.0f);

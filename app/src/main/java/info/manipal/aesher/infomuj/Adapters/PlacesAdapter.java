@@ -2,21 +2,16 @@ package info.manipal.aesher.infomuj.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
 import java.util.List;
 
-import info.manipal.aesher.infomuj.Fragment.MainPage;
-import info.manipal.aesher.infomuj.Fragment.WayPoints;
 import info.manipal.aesher.infomuj.R;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHolder> {
@@ -24,8 +19,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     private List<String> myProvider;
     private Context myContext;
 
-    public PlacesAdapter(Context mContext, List<String> mProvider){
-        this.myContext= mContext;
+    public PlacesAdapter(Context mContext, List<String> mProvider) {
+        this.myContext = mContext;
         this.myProvider = mProvider;
     }
 
@@ -33,32 +28,33 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_navigation,parent,false);
-        return new PlacesAdapter.MyViewHolder(v,viewType);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_navigation, parent, false);
+        return new PlacesAdapter.MyViewHolder(v, viewType);
     }
 
     @Override
-    public void onBindViewHolder( MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         String provider = myProvider.get(position);
         holder.waypoint.setText(provider);
 
-           }
+    }
 
 
     @Override
     public int getItemViewType(int position) {
-        return TimelineView.getTimeLineViewType(position,getItemCount());
+        return TimelineView.getTimeLineViewType(position, getItemCount());
     }
 
     @Override
     public int getItemCount() {
-       return myProvider.size();
+        return myProvider.size();
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView waypoint;
         TimelineView timelineView;
+
         MyViewHolder(View itemView, int viewType) {
             super(itemView);
             waypoint = itemView.findViewById(R.id.waypoint);

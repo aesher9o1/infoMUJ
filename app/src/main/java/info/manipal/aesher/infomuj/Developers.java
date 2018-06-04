@@ -5,12 +5,10 @@ import android.content.pm.ActivityInfo;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.transitionseverywhere.TransitionManager;
@@ -41,43 +39,50 @@ public class Developers extends AppCompatActivity {
 
     @BindView(R.id.ashContainer)
     LinearLayout ashContainer;
+    Boolean viduVisible, ashVisible;
+
+    public static void setLocked(CircleImageView v) {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+        v.setColorFilter(cf);
+        v.setImageAlpha(128);
+    }
+
+    public static void setUnlocked(CircleImageView v) {
+        v.setColorFilter(null);
+        v.setImageAlpha(255);
+    }
 
     @OnClick(R.id.viduGit)
-            public void ViduGit(){
+    public void ViduGit() {
         Github("https://github.com/vidu171");
     }
 
-
     @OnClick(R.id.viduLink)
-            public void ViduLink(){
+    public void ViduLink() {
         linkdln("https://www.linkedin.com/in/vidhyanshu-jain-153876157");
     }
 
     @OnClick(R.id.viduEmail)
-            public void Email(){
+    public void Email() {
         Google("viduuj@gmail.com");
     }
 
-
     @OnClick(R.id.ashGit)
-    public void ashGit(){
+    public void ashGit() {
         Github("https://github.com/aesher9o1");
     }
 
-
     @OnClick(R.id.ashLink)
-    public void ashLink(){
+    public void ashLink() {
         linkdln("https://www.linkedin.com/in/aashiskumar/");
     }
 
     @OnClick(R.id.ashEmail)
-    public void ashEmail(){
+    public void ashEmail() {
         Google("aashiskumar986@gmail.com");
     }
-
-
-
-    Boolean viduVisible, ashVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +90,7 @@ public class Developers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developers);
         ButterKnife.bind(this);
-        viduVisible= false;
+        viduVisible = false;
         ashVisible = false;
         setLocked(vidhyanshuJain);
         setLocked(aashiskumar);
@@ -95,14 +100,12 @@ public class Developers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TransitionManager.beginDelayedTransition(ashContainer);
-                if(!ashVisible){
+                if (!ashVisible) {
                     setUnlocked(aashiskumar);
                     aashisInfo.setVisibility(View.VISIBLE);
-                    ashVisible= true;
-                }
-
-                else{
-                    ashVisible= false;
+                    ashVisible = true;
+                } else {
+                    ashVisible = false;
                     setLocked(aashiskumar);
                     aashisInfo.setVisibility(View.GONE);
                 }
@@ -110,21 +113,16 @@ public class Developers extends AppCompatActivity {
         });
 
 
-
-
-
         vidhyanshuJain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TransitionManager.beginDelayedTransition(viduContainer);
-                if(!viduVisible){
+                if (!viduVisible) {
                     setUnlocked(vidhyanshuJain);
                     viduName.setVisibility(View.VISIBLE);
-                    viduVisible= true;
-                }
-
-                else{
-                    viduVisible= false;
+                    viduVisible = true;
+                } else {
+                    viduVisible = false;
                     setLocked(vidhyanshuJain);
                     viduName.setVisibility(View.GONE);
                 }
@@ -132,15 +130,13 @@ public class Developers extends AppCompatActivity {
         });
 
 
-
-
-
     }
-    private void Google( String URL){
+
+    private void Google(String URL) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{  URL});
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{URL});
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
@@ -150,34 +146,12 @@ public class Developers extends AppCompatActivity {
         }
     }
 
-
-    private void Github( String URL){
-        startActivity(new Intent( Intent.ACTION_VIEW , Uri.parse( URL ) ));
+    private void Github(String URL) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
     }
 
-
-    private void linkdln( String URL){
-        startActivity(new Intent( Intent.ACTION_VIEW , Uri.parse( URL ) ));
-    }
-
-
-
-
-
-    public static void  setLocked(CircleImageView v)
-    {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
-        v.setColorFilter(cf);
-        v.setImageAlpha(128);
-    }
-
-
-    public static void  setUnlocked(CircleImageView v)
-    {
-        v.setColorFilter(null);
-        v.setImageAlpha(255);
+    private void linkdln(String URL) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
     }
 
 }

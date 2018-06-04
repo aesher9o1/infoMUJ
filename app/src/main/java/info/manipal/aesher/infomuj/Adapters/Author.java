@@ -4,9 +4,9 @@ import com.stfalcon.chatkit.commons.models.IUser;
 
 public class Author implements IUser {
 
-    String id , name,avatar;
+    String id, name, avatar;
 
-    public Author(String id, String name, String avatar){
+    public Author(String id, String name, String avatar) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;

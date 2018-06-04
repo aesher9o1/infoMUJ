@@ -2,12 +2,15 @@ package info.manipal.aesher.infomuj.Constants;
 
 public class firebaseData {
 
-    String longOverview,shortOverview,divId,img1,img2,img3,name;
+    String longOverview, shortOverview, divId, img1, img2, img3, name;
 
-    public void firebaseData(){};
+    public void firebaseData() {
+    }
+
+    ;
 
 
-    public void firebaseData(String longOverview,String shortOverview,String divId,String img1,String img2,String img3,String name){
+    public void firebaseData(String longOverview, String shortOverview, String divId, String img1, String img2, String img3, String name) {
         this.longOverview = longOverview;
         this.shortOverview = shortOverview;
         this.divId = divId;
