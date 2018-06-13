@@ -13,10 +13,8 @@ public class PlacesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places);
-        ButterKnife.bind(this);
         replaceFrag();
     }
 
@@ -24,7 +22,7 @@ public class PlacesActivity extends AppCompatActivity {
     public void replaceFrag() {
         Places fragmentMainPage = new Places();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fadein, R.anim.fadeout).replace(R.id.listfragments, fragmentMainPage, "ListPlaces");
+        ft.setCustomAnimations(R.anim.fadein, R.anim.fadeout).replace(R.id.listfragments, fragmentMainPage);
         ft.commit();
     }
 

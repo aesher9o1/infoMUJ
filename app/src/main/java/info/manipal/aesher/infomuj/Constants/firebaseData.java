@@ -7,7 +7,7 @@ public class firebaseData {
     public void firebaseData() {
     }
 
-    ;
+
 
 
     public void firebaseData(String longOverview, String shortOverview, String divId, String img1, String img2, String img3, String name) {

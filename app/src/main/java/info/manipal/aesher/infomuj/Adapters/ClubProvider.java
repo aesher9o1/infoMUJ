@@ -2,14 +2,14 @@ package info.manipal.aesher.infomuj.Adapters;
 
 public class ClubProvider {
     private String ButtonText, LayoutTitle, WebsiteLink;
-    private boolean isMoreInfo;
+
     private int index;
 
-    public ClubProvider(String ButtonText, String LayoutTitle, String WebsiteLink, boolean isMoreInfo, int index) {
+    public ClubProvider(String ButtonText, String LayoutTitle, String WebsiteLink, int index) {
         this.ButtonText = ButtonText;
         this.LayoutTitle = LayoutTitle;
         this.WebsiteLink = WebsiteLink;
-        this.isMoreInfo = isMoreInfo;
+
         this.index = index;
     }
 
@@ -25,9 +25,6 @@ public class ClubProvider {
         return WebsiteLink;
     }
 
-    public boolean getisMoreInfo() {
-        return isMoreInfo;
-    }
 
     public int getIndex() {
         return index;

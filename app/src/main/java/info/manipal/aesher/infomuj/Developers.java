@@ -25,8 +25,7 @@ public class Developers extends AppCompatActivity {
 
     @BindView(R.id.vidhyanshu)
     LinearLayout viduName;
-
-
+    
     @BindView(R.id.aashiskumar)
     CircleImageView aashiskumar;
 
@@ -35,24 +34,12 @@ public class Developers extends AppCompatActivity {
 
     @BindView(R.id.viduContainer)
     LinearLayout viduContainer;
-
-
+    
     @BindView(R.id.ashContainer)
     LinearLayout ashContainer;
+    
     Boolean viduVisible, ashVisible;
 
-    public static void setLocked(CircleImageView v) {
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0);
-        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
-        v.setColorFilter(cf);
-        v.setImageAlpha(128);
-    }
-
-    public static void setUnlocked(CircleImageView v) {
-        v.setColorFilter(null);
-        v.setImageAlpha(255);
-    }
 
     @OnClick(R.id.viduGit)
     public void ViduGit() {
@@ -94,6 +81,9 @@ public class Developers extends AppCompatActivity {
         ashVisible = false;
         setLocked(vidhyanshuJain);
         setLocked(aashiskumar);
+
+
+      
 
 
         aashiskumar.setOnClickListener(new View.OnClickListener() {
@@ -154,4 +144,27 @@ public class Developers extends AppCompatActivity {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL)));
     }
 
+
+
+    public static void setLocked(final CircleImageView v) {
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+                v.setColorFilter(cf);
+                v.setImageAlpha(128);
+            }
+        }).run();
+
+    }
+
+    public static void setUnlocked(CircleImageView v) {
+        v.setColorFilter(null);
+        v.setImageAlpha(255);
+    }
 }

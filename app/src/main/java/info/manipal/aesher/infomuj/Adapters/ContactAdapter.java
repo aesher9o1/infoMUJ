@@ -1,11 +1,11 @@
 package info.manipal.aesher.infomuj.Adapters;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +21,16 @@ import info.manipal.aesher.infomuj.R;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
 
     private List<ContactProvider> myProvider;
-    private Context myContext;
 
-    public ContactAdapter(Context mContext, List<ContactProvider> mProvider) {
-        this.myContext = mContext;
+    public ContactAdapter( List<ContactProvider> mProvider) {
         this.myProvider = mProvider;
     }
 
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_layout, parent, false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_contact, parent, false);
         return new ContactAdapter.MyViewHolder(v);
     }
 
@@ -48,15 +47,17 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
         });
     }
 
-    public void replaceFrag(View view, String clickedItem) {
+    private void replaceFrag(View view, String clickedItem) {
+        if(!TextUtils.isEmpty(clickedItem)){
+            Bundle bundle = new Bundle();
+            bundle.putString("dataToLoad", clickedItem);
+            WayPoints fragmentWay = new WayPoints();
+            fragmentWay.setArguments(bundle);
+            FragmentTransaction ft = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.fadein, R.anim.fadeout).replace(R.id.listfragments, fragmentWay, "places");
+            ft.commit();
+        }
 
-        Bundle bundle = new Bundle();
-        bundle.putString("dataToLoad", clickedItem);
-        WayPoints fragmentWay = new WayPoints();
-        fragmentWay.setArguments(bundle);
-        FragmentTransaction ft = ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.fadein, R.anim.fadeout).replace(R.id.listfragments, fragmentWay, "places");
-        ft.commit();
     }
 
 

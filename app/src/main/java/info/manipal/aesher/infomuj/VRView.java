@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class VRView extends AppCompatActivity {
 
-    static Context mContext;
+
     @BindView(R.id.pano_view)
     VrPanoramaView panoramaView;
 
@@ -33,8 +33,12 @@ public class VRView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vrview);
         ButterKnife.bind(this);
-        mContext = this;
-        loadPanoImage(getIntent().getStringExtra("imageToLoad"), panoramaView);
+
+
+        try{loadPanoImage(getIntent().getStringExtra("imageToLoad"), panoramaView);}
+        catch (OutOfMemoryError e){
+            Toast.makeText(this,"Not enough RAM",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public synchronized void loadPanoImage(String URL, VrPanoramaView panoWidgetView) {
@@ -48,6 +52,7 @@ public class VRView extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        System.gc();
     }
 
     void GoFullScreen() {
@@ -66,6 +71,7 @@ public class VRView extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         panoramaView.shutdown();
+        System.gc();
     }
 
     @Override
@@ -73,6 +79,9 @@ public class VRView extends AppCompatActivity {
         super.onResume();
         panoramaView.resumeRendering();
     }
+
+
+
 
     static class ImageLoaderTask extends AsyncTask<AssetManager, Void, Bitmap> {
 
@@ -124,7 +133,7 @@ public class VRView extends AppCompatActivity {
                     vw.loadImageFromBitmap(bitmap, viewOptions);
 
                 } catch (Exception e) {
-                    Toast.makeText(mContext, "There is some problem in the VR compatibility of your phone", Toast.LENGTH_LONG).show();
+                    Log.w("panorama exception", ""+e);
                 }
 
             }

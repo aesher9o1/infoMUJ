@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.picasso.Picasso;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+
 
 import java.io.IOException;
 import java.util.Locale;
@@ -48,6 +46,8 @@ import info.manipal.aesher.infomuj.Adapters.CustomAlertDialog;
 import info.manipal.aesher.infomuj.Constants.firebaseData;
 import info.manipal.aesher.infomuj.Developers;
 import info.manipal.aesher.infomuj.R;
+import info.manipal.aesher.infomuj.Threads.FetchingAsync;
+import info.manipal.aesher.infomuj.Threads.Interface.FetchingInterface;
 
 public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
 
@@ -67,16 +67,6 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
     @BindView(R.id.domePhoto)
     ImageView domePhoto;
 
-
-    @BindView(R.id.manipalVR)
-    ImageView VR;
-
-    @BindView(R.id.bot)
-    ImageView bot;
-
-    @BindView(R.id.qrScan)
-    ImageView qrScan;
-
     View alertLayout;
     CustomAlertDialog customDialog;
     DatabaseReference ref;
@@ -88,10 +78,8 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, v);
-        Glide.with(this).load(R.drawable.tt_card).into(domePhoto);
-        Glide.with(this).load(R.drawable.ic_360).into(VR);
-        Glide.with(this).load(R.drawable.scan).into(qrScan);
-        Glide.with(this).load(R.drawable.chat).into(bot);
+        Picasso.get().load(R.drawable.tt_card).into(domePhoto);
+
         scaleDown(QRCode, 1);
         scaleDown(DialogueFlow, 2);
         scaleDown(developerButton, 3);
@@ -123,7 +111,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        firebaseData firebaseData = dataSnapshot.getValue(info.manipal.aesher.infomuj.Constants.firebaseData.class);
+                        final firebaseData firebaseData = dataSnapshot.getValue(info.manipal.aesher.infomuj.Constants.firebaseData.class);
                         LayoutInflater inflater = getLayoutInflater();
                         alertLayout = inflater.inflate(R.layout.dialogue_qr, null);
                         customDialog = new CustomAlertDialog(getContext(), alertLayout);
@@ -135,17 +123,23 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
                             if (!firebaseData.getDivId().equals("NaN")) {
                                 final StringBuilder BranchName = new StringBuilder();
                                 BranchName.append("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>");
-                                newTask myTask = new newTask();
-                                Log.w("Aashis", firebaseData.getLongOverview());
-                                Log.w("Aashis", firebaseData.getShortOverview());
-                                myTask.execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
-                            } else {
+                                new FetchingAsync(new FetchingInterface() {
+                                    @Override
+                                    public void processFinished(String output) {
+
+                                        try{
+                                            customDialog.SetWebView(output);
+                                            speakOut(firebaseData.getShortOverview());
+                                        }catch (Exception e){
+                                            Log.w("Website",""+e);}
+                                    }
+                                }).execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
+                                } else {
                                 final StringBuilder LongInfo = new StringBuilder();
                                 LongInfo.append("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>");
                                 LongInfo.append(firebaseData.getLongOverview());
                                 customDialog.SetWebView(LongInfo.toString());
                                 speakOut(firebaseData.getShortOverview());
-
                             }
 
                         } catch (Exception e) {
@@ -280,7 +274,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
     @Override
     public void onPause() {
         super.onPause();
-
+        tts.stop();
     }
 
     @Override
@@ -299,7 +293,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
         super.onDestroy();
     }
 
-    private void speakOut(final String text) {
+    private  void speakOut(final String text) {
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
@@ -315,53 +309,10 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
 
 
     private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
-
         @Override
         public boolean onSingleTapUp(MotionEvent event) {
             return true;
         }
     }
-
-
-    public class newTask extends AsyncTask<String, Void, String> {
-
-        String info = "";
-        String shortOverview = "";
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String url = strings[0];
-            shortOverview = strings[2];
-            try {
-                info += strings[1];
-                Document doc = Jsoup.connect(url).get();
-                Log.w("Website", "Website to fetch " + strings[3]);
-                Log.w("Website", "" + doc);
-                String CssQuery = "div[id=" + strings[3] + "]";
-                Element text = doc.select(CssQuery).first();
-                Log.w("Website", "" + text);
-                info += "" + text;
-                return info;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            if (info != null) {
-                customDialog.SetWebView(info);
-                speakOut(shortOverview);
-
-            }
-
-
-        }
-
-    }
-
 
 }

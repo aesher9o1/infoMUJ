@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,13 +14,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +39,16 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.transitionseverywhere.ChangeText;
 
 import java.io.File;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
+import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.Constants.VR;
 import info.manipal.aesher.infomuj.R;
 import info.manipal.aesher.infomuj.VRView;
@@ -60,16 +67,19 @@ public class VRFragment extends Fragment {
     ViewGroup transitionsContainer;
     File folder;
 
+
+    UtilityFunctions utilityFunctions;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.vr_fragment, container, false);
-        transitionsContainer = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+        final View v = inflater.inflate(R.layout.fragment_vr, container, false);
+        transitionsContainer = Objects.requireNonNull(getActivity()).getWindow().getDecorView().findViewById(R.id.container);
         heading = getActivity().getWindow().getDecorView().findViewById(R.id.heading);
         replaceText();
         ButterKnife.bind(this, v);
         isStoreagePermission();
-
+        utilityFunctions = new UtilityFunctions(getContext());
 
         folder = new File(Environment.getExternalStorageDirectory() + File.separator + "infoMUJAssets");
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -92,12 +102,14 @@ public class VRFragment extends Fragment {
                         .setQuery(query, VR.class)
                         .build();
 
-
+        System.gc();
         VRAdapter = new FirebaseRecyclerAdapter<VR, vrRecyclerView>(options) {
 
 
             @Override
             protected void onBindViewHolder(@NonNull final vrRecyclerView holder, final int position, @NonNull final VR model) {
+                int color = utilityFunctions.getMatColor();
+                holder.verticalLine.setBackgroundColor(color);
                 FirebaseStorage storage = FirebaseStorage.getInstance();
 
                 final StorageReference storageReference = storage.getReferenceFromUrl(model.getUrl());
@@ -108,22 +120,37 @@ public class VRFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             VR vr = dataSnapshot.getValue(VR.class);
+                            assert vr != null;
+
+                            Picasso.get().load(model.getBgImage()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).fit().centerCrop() .into(holder.panoView, new Callback() {
+                                @Override
+                                public void onSuccess() {}
+
+                                @Override
+                                public void onError(Exception e) {
+                                    Picasso.get().load(model.getBgImage()).placeholder(R.mipmap.ic_launcher).fit().centerCrop() .into(holder.panoView);
+                                }
+                            });
+
+
+
                             if (vr.getSize() == (new File(folder + "/" + model.getPlace() + ".jpg").length())) {
                                 holder.mainBody.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        //    loadPanoImage(folder + "/" + model.getPlace() + ".jpg", holder.panoWidgetView);
                                         Intent i = new Intent(getActivity(), VRView.class);
                                         i.putExtra("imageToLoad", folder + "/" + model.getPlace() + ".jpg");
                                         startActivity(i);
                                     }
                                 });
+
+                                holder.developerCredits.setText( holder.developerCredits.getText().toString()+model.getCredits());
                                 holder.developerCredits.setVisibility(View.VISIBLE);
                                 holder.name.setText(model.getPlace());
                                 Log.w("Size", "All Clear");
                             } else {
                                 Log.w("Size", "File Exist but downloading");
-                                downloadFile(model.getPlace(), storageReference, holder);
+                                downloadFile(model.getPlace(), storageReference, holder,model.getBgImage(),model.getCredits());
                             }
                         }
 
@@ -135,7 +162,7 @@ public class VRFragment extends Fragment {
 
                 } else {
                     Log.w("Size", "Fresh Download");
-                    downloadFile(model.getPlace(), storageReference, holder);
+                    downloadFile(model.getPlace(), storageReference, holder,model.getBgImage(), model.getCredits());
                 }
 
 
@@ -157,7 +184,19 @@ public class VRFragment extends Fragment {
     }
 
 
-    private void downloadFile(final String filename, StorageReference storageReference, final vrRecyclerView holder) {
+    private void downloadFile(final String filename, StorageReference storageReference, final vrRecyclerView holder, final String backgroundImage, final String Credits) {
+
+        Picasso.get().load(backgroundImage).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop() .into(holder.panoView, new Callback() {
+            @Override
+            public void onSuccess() {}
+
+            @Override
+            public void onError(Exception e) {
+                Picasso.get().load(backgroundImage).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop() .into(holder.panoView);
+            }
+
+        });
+
         final File localFile = new File(folder, filename + ".jpg");
         storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
@@ -165,22 +204,23 @@ public class VRFragment extends Fragment {
                 holder.mainBody.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //  loadPanoImage(folder + "/" + filename + ".jpg", holder.panoWidgetView);
                         Intent i = new Intent(getActivity(), VRView.class);
                         i.putExtra("imageToLoad", folder + "/" + filename + ".jpg");
                         startActivity(i);
                     }
                 });
-                Toast.makeText(getContext(), filename+" is ready to be viewed. Tap on the card to get started", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(Objects.requireNonNull(getContext()), filename+" is ready to be viewed. Tap on the card to get started", Toast.LENGTH_LONG).show();
                 holder.name.setText(filename);
+                holder.developerCredits.setText( holder.developerCredits.getText().toString()+Credits);
                 holder.developerCredits.setVisibility(View.VISIBLE);
+
             }
         }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                holder.name.setText("" + ((int) progress) + " %downloaded");
+                holder.name.setText(((int) progress) + " %downloaded");
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -230,8 +270,10 @@ public class VRFragment extends Fragment {
     public class vrRecyclerView extends RecyclerView.ViewHolder {
 
         TextView name;
-        CardView mainBody;
+        LinearLayout mainBody;
         TextView developerCredits;
+        ImageView panoView;
+        View verticalLine;
 
 
         vrRecyclerView(View itemView) {
@@ -239,8 +281,12 @@ public class VRFragment extends Fragment {
             name = itemView.findViewById(R.id.name);
             mainBody = itemView.findViewById(R.id.body);
             developerCredits = itemView.findViewById(R.id.developerCredit);
+            panoView = itemView.findViewById(R.id.pano_view);
+            verticalLine = itemView.findViewById(R.id.verticalLine);
 
         }
     }
+
+
 
 }

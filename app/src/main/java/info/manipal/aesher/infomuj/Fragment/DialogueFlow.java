@@ -1,6 +1,7 @@
 package info.manipal.aesher.infomuj.Fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import com.transitionseverywhere.ChangeText;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import ai.api.AIConfiguration;
 import ai.api.AIListener;
@@ -57,6 +60,7 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
     private TextToSpeech tts;
     private GestureDetector gestureDetector;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
         isSoundPermission();
 
         //getting the container and the buttons of the main activity
-        transitionsContainer = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+        transitionsContainer = Objects.requireNonNull(getActivity()).getWindow().getDecorView().findViewById(R.id.container);
         heading = getActivity().getWindow().getDecorView().findViewById(R.id.heading);
         dialogueFlowButton = getActivity().getWindow().getDecorView().findViewById(R.id.contactButton);
         //replaces the text heding to welcome to muj
@@ -83,7 +87,7 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
         config.setRecognizerStopSound(getResources().openRawResourceFd(R.raw.test_stop));
         config.setRecognizerCancelSound(getResources().openRawResourceFd(R.raw.test_cancel));
 
-        aiService = AIService.getService(getContext(), config);
+        aiService = AIService.getService(Objects.requireNonNull(getContext()), config);
         aiService.setListener(this);
 
         gestureDetector = new GestureDetector(getActivity(), new SingleTapConfirm());
@@ -106,7 +110,8 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
             public boolean onTouch(View view, MotionEvent motionEvent) {
 
                 if (gestureDetector.onTouchEvent(motionEvent)) {
-                    dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
+                    dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton);
+                    dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
                     return true;
                 } else {
                     switch (motionEvent.getAction()) {
@@ -114,14 +119,13 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
                             aiService.startListening();
                             dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
-                            dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton2));
-
+                            dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton2);
 
                             break;
 
                         case MotionEvent.ACTION_UP:
                             dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-                            dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
+                            dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton);
                             break;
                     }
 
@@ -138,7 +142,7 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     public void isSoundPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
-            if (getActivity().checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            if (Objects.requireNonNull(getActivity()).checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, 1);
             }
         }
@@ -178,7 +182,7 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
             @Override
             public void run() {
                 dialogueFlowButton.setText("Initiate a Chat");
-                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getActivity(), R.drawable.ic_mic), null, null, null);
+                dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.ic_mic), null, null, null);
                 dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
             }
         };
@@ -218,9 +222,11 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     @Override
     public void onError(AIError error) {
-        dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundbutton3));
-
+        try {
+            dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+            dialogueFlowButton.setBackgroundResource(R.drawable.roundbutton3);
+        }
+        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
     }
 
     @Override
@@ -230,21 +236,25 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     @Override
     public void onListeningStarted() {
+        try{
         dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton2));
-
+        dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton2);
+    }
+        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
     }
 
     @Override
     public void onListeningCanceled() {
+        try{
         dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundbutton3));
-
+        dialogueFlowButton.setBackgroundResource(R.drawable.roundbutton3);
+    }
+        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
     }
 
     private void speakOut(String text) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&& !TextUtils.isEmpty(text)) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
@@ -252,9 +262,10 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     @Override
     public void onListeningFinished() {
+        try{
         dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.roundedbutton));
-
+            dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton);
+    } catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
     }
 
     @Override

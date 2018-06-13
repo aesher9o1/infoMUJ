@@ -35,7 +35,7 @@ public class Places extends Fragment {
 
         contentFillers = new NavMenuMain();
         List<ContactProvider> provider = new ArrayList<>();
-        ContactAdapter adapter = new ContactAdapter(getActivity(), provider);
+        ContactAdapter adapter = new ContactAdapter(provider);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         contactRecycler.setLayoutManager(layoutManager);
         contactRecycler.setHasFixedSize(true);

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/container"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScrappedResultNormal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <ImageView
+        android:src="@drawable/back"
+        android:alpha="0.15"
+        android:id="@+id/background"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:id="@+id/heading"
+        android:textColor="@color/gray"
+        android:layout_marginTop="32dip"
+        android:layout_marginStart="24dip"
+        android:textSize="21sp"
+        android:text="@string/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:id="@+id/body"
+        android:alpha="0"
+        android:background="@color/white"
+        android:layout_marginEnd="15dip"
+        android:layout_marginStart="15dip"
+        android:layout_weight="1"
+        android:layout_marginTop="70dip"
+        android:layout_width="match_parent"
+        android:layout_height="0dip">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+    <com.truizlop.fabreveallayout.FABRevealLayout
+        android:visibility="invisible"
+        android:alpha="0"
+        android:layout_gravity="bottom"
+        android:id="@+id/fab_reveal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dip">
+
+        <android.support.design.widget.FloatingActionButton
+            android:elevation="14dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bubble"
+            app:backgroundTint="@color/dark_grey_two"
+            />
+
+
+        <!-- Screen1-->
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+<LinearLayout
+    android:gravity="center_vertical"
+    android:id="@+id/mainDetails"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/clubLogo"
+        android:layout_width="80dip"
+        android:layout_marginStart="55dip"
+        android:layout_height="80dip"
+        android:src="@mipmap/ic_launcher"/>
+
+
+
+    <LinearLayout
+        android:layout_marginStart="35dip"
+        android:layout_marginTop="3dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:textColor="#313131"
+            android:textSize="27sp"
+            android:text="Registration Fee"
+            android:id="@+id/registration"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="#414141"
+            android:textSize="20sp"
+            android:id="@+id/details_registration"
+            android:text="Not Available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+
+            <LinearLayout
+                android:focusable="true"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/payment"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:background="@drawable/rounded_shape"
+                    android:backgroundTint="#4CAF50"
+                    android:layout_width="45dip"
+                    android:padding="7dip"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_dashboard"
+                    android:layout_height="45dip" />
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dip"
+                    android:text="Club Dashboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:focusable="true"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/contact"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:background="@drawable/rounded_shape"
+                    android:backgroundTint="#E91E63"
+                    android:layout_width="45dip"
+                    android:padding="7dip"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_call"
+                    android:layout_height="45dip" />
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dip"
+                    android:text="Contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:focusable="true"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:id="@+id/notifications"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:background="@drawable/rounded_shape"
+                    android:backgroundTint="#FFC107"
+                    android:layout_width="45dip"
+                    android:padding="7dip"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_notifications"
+                    android:layout_height="45dip" />
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dip"
+                    android:text="Subscribe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+</LinearLayout>
+        </RelativeLayout>
+
+    </com.truizlop.fabreveallayout.FABRevealLayout>
+</LinearLayout>
+
+
+    <LinearLayout
+        android:elevation="114dip"
+        android:alpha="0.8"
+        android:id="@+id/revealLayout"
+        android:visibility="invisible"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>
