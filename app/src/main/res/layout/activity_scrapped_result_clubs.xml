@@ -230,7 +230,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/white"
                     android:layout_marginTop="5dip"
-                    android:text="Subscribe"
+                    android:text="Subscriber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

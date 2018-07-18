@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -64,7 +65,7 @@ import info.manipal.aesher.infomuj.Fragment.DialogueFlow;
 import info.manipal.aesher.infomuj.Fragment.MainPage;
 
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
     public static final String textWhenMainScreen = "Info Muj";
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public static final String textWhenVRScreen = "Manipal 360";
 
     FirebaseAuth mAuth;
+    GoogleApiClient mGoogleApiClient;
 
     MainPage fragmentMainPage;
     DialogueFlow dialogueFlow;
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     Boolean colored = false;
     ViewGroup transitionsContainer;
     LinearLayoutManager layoutManager;
-
 
 
     @BindView(R.id.sliding_layout)
@@ -109,15 +110,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     ImageView back;
 
 
-
     int numberOfCards = 4;
-    String[] cardNames = {"engineering","club","faq","policies"};
-
+    String[] cardNames = {"engineering", "club", "faq", "policies"};
 
 
     @OnClick(R.id.hamburger)
-    public void slideUpToggle() {sothreeLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED); }
-
+    public void slideUpToggle() {
+        sothreeLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+    }
 
 
     @OnClick(R.id.notifications)
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,9 +174,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         /* Sets the main fragment of the page*/
         replaceFrag();
         Picasso.get().load(R.drawable.back).into(back);
-       /* Initializes the main dialogue for use*/
+        /* Initializes the main dialogue for use*/
         initialiseDialog();
 
+
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() == null)
+            firebaseSignIn();
+        else
+            Log.w("Firebase",mAuth.getCurrentUser().getUid());
 
 
 
@@ -185,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         /*Setup of the navigation Menu */
         contentFillers = new NavMenuMain();
         layoutManager = new GridLayoutManager(getApplicationContext(), 4);
-        for(int i=1;i<=numberOfCards;i++)
-            prepare(cardNames[i-1],i);
+        for (int i = 1; i <= numberOfCards; i++)
+            prepare(cardNames[i - 1], i);
 
 
         transitionsContainer = findViewById(R.id.container);
@@ -195,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         dialogueFlow = (DialogueFlow) getSupportFragmentManager().findFragmentByTag("Chatbot");
         contactListener();
     }
-
 
 
     public void OpenPlay(String url) {
@@ -208,8 +212,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
-
     public void initialiseDialog() {
         LayoutInflater inflater = getLayoutInflater();
         alertLayout = inflater.inflate(R.layout.dialogue_qr, null);
@@ -218,14 +220,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
     private void firebaseSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,  this )
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -265,8 +266,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
-
     public void contactListener() {
         dialogueFlowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,8 +292,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
-
     public void replaceButton() {
         dialogueFlowButton.animate().scaleX(0f).scaleY(0f).setDuration(300).start();
         Handler delayForButtonChange = new Handler();
@@ -313,8 +310,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
-
     public void replaceFrag() {
         fragmentMainPage = new MainPage();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -322,7 +317,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         ft.setCustomAnimations(R.anim.fadein, R.anim.fadeout).replace(R.id.mainFragment, fragmentMainPage, "Dashboard");
         ft.commit();
     }
-
 
 
     public void isCameraPermission() {
@@ -334,27 +328,31 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-     void prepare(final String category, final int number){
-        final RecyclerView[] cardViews= {engineering,clubs,college,policies};
+    void prepare(final String category, final int number) {
+        final RecyclerView[] cardViews = {engineering, clubs, college, policies};
         new Thread(new Runnable() {
             @Override
             public void run() {
                 List<ClubProvider> provider = new ArrayList<>();
                 ClubAdapter adapterCollege = new ClubAdapter(MainActivity.this, provider, customDialog, category);
                 layoutManager = new GridLayoutManager(getApplicationContext(), 4);
-                cardViews[number-1].setLayoutManager(layoutManager);
-                cardViews[number-1].setAdapter(adapterCollege);
-                cardViews[number-1].setNestedScrollingEnabled(false);
+                cardViews[number - 1].setLayoutManager(layoutManager);
+                cardViews[number - 1].setAdapter(adapterCollege);
+                cardViews[number - 1].setNestedScrollingEnabled(false);
 
 
-                switch (number){
-                    case 1:contentFillers.engineering(provider);
+                switch (number) {
+                    case 1:
+                        contentFillers.engineering(provider);
                         break;
-                    case 2: contentFillers.clubs(provider);
+                    case 2:
+                        contentFillers.clubs(provider);
                         break;
-                    case 3:contentFillers.college(provider);
+                    case 3:
+                        contentFillers.college(provider);
                         break;
-                    case 4:contentFillers.policies(provider);
+                    case 4:
+                        contentFillers.policies(provider);
                         break;
                 }
 
@@ -363,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
+        mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -371,10 +369,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/"+mAuth.getUid());
-                            databaseReference.keepSynced(false);
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/" + mAuth.getUid());
                             databaseReference.setValue(new Users(Objects.requireNonNull(acct).getGivenName(), acct.getEmail()));
                         }
+                        else
+                            Toast.makeText(getApplicationContext(),"Check your internet connection",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -395,18 +394,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser()==null)
-           firebaseSignIn();
-    }
 
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Snackbar.make(sothreeLayout,"Authentication Requires an Internet Connection",Snackbar.LENGTH_INDEFINITE).show();
+        Snackbar.make(sothreeLayout, "Authentication Requires an Internet Connection", Snackbar.LENGTH_LONG).show();
 
     }
 
@@ -419,11 +411,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+                Log.w("Firebase","Signining");
             } catch (ApiException e) {
-                Log.w("FirebaseAuth","Failed "+ e);
+                Log.w("FirebaseAuth", "Failed " + e);
             }
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
+        }
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.stopAutoManage(this);
+            mGoogleApiClient.disconnect();
+        }
+    }
 }

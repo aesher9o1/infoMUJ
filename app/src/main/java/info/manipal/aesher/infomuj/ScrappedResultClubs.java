@@ -191,7 +191,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mAuth.getCurrentUser()!=null){
+
                     LayoutInflater inflater = getLayoutInflater();
                     View alertLayout = inflater.inflate(R.layout.layout_developer_request, null);
                     AlertDialog.Builder alert = new AlertDialog.Builder(ScrappedResultClubs.this);
@@ -201,7 +201,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
                     dialog.show();
                    WebView webViewD = dialog.findViewById(R.id.webView);
                     Objects.requireNonNull(webViewD).loadData(utilityFunctions.developerMessage,"text/html", null);
-                }
+
             }
         });
 
