@@ -1,5 +1,6 @@
 package info.manipal.aesher.infomuj;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -39,8 +40,11 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
+import info.manipal.aesher.infomuj.ClubActivities.Aperture;
+import info.manipal.aesher.infomuj.ClubActivities.Litmus;
 import info.manipal.aesher.infomuj.Constants.Clubs;
+import info.manipal.aesher.infomuj.ClubActivities.IEEE;
 import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.Constants.firebaseData;
 import info.manipal.aesher.infomuj.Threads.FetchingAsync;
@@ -108,6 +112,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        Log.w("Aashis" , getIntent().getStringExtra("Name"));
 
         loadBottomData();
 
@@ -188,19 +193,41 @@ public class ScrappedResultClubs extends AppCompatActivity {
 
     private void loadBottomData(){
 
+
+
+
+
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    LayoutInflater inflater = getLayoutInflater();
-                    View alertLayout = inflater.inflate(R.layout.layout_developer_request, null);
-                    AlertDialog.Builder alert = new AlertDialog.Builder(ScrappedResultClubs.this);
-                    alert.setView(alertLayout);
-                    AlertDialog dialog = alert.create();
-                    Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();
-                   WebView webViewD = dialog.findViewById(R.id.webView);
-                    Objects.requireNonNull(webViewD).loadData(utilityFunctions.developerMessage,"text/html", null);
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ScrappedResultClubs.this,heading,heading.getTransitionName()).toBundle();
+
+                switch (getIntent().getStringExtra("Name")) {
+                    case "IEEE":
+                        startActivity(new Intent(ScrappedResultClubs.this, IEEE.class), bundle);
+                        break;
+                    case "Litmus":
+                        startActivity(new Intent(ScrappedResultClubs.this, Litmus.class), bundle);
+                        break;
+                    case "Aperture":
+                        startActivity(new Intent(ScrappedResultClubs.this, Aperture.class), bundle);
+                        break;
+                    default:
+                        LayoutInflater inflater = getLayoutInflater();
+                        View alertLayout = inflater.inflate(R.layout.layout_developer_request, null);
+                        AlertDialog.Builder alert = new AlertDialog.Builder(ScrappedResultClubs.this);
+                        alert.setView(alertLayout);
+                        AlertDialog dialog = alert.create();
+                        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+                        WebView webViewD = dialog.findViewById(R.id.webView);
+                        Objects.requireNonNull(webViewD).loadData(utilityFunctions.developerMessage, "text/html", null);
+
+                        break;
+                }
+
+
 
             }
         });
@@ -241,7 +268,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
 
 
                                     FirebaseMessaging.getInstance().subscribeToTopic(getIntent().getStringExtra("Name"));
-                                    Toast.makeText(getApplicationContext(),"Your are now suscribed to "+getIntent().getStringExtra("Name")+" notification channel",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),"Your are now subscribed to "+getIntent().getStringExtra("Name")+" notification channel",Toast.LENGTH_SHORT).show();
 
 
                                 }

@@ -79,9 +79,7 @@ public class ScrappedResultNormal extends AppCompatActivity{
                               new FetchingAsync(new FetchingInterface() {
                                 @Override
                                 public void processFinished(String output) {
-
                                     try{
-
                                     loadDataToWeb(output);
                                     }catch (Exception e){Log.w("Website",""+e);}
                                 }

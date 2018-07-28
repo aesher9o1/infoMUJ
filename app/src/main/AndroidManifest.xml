@@ -42,7 +42,6 @@
         <activity
             android:name=".VRView"
             android:noHistory="true" />
-
         <activity android:name=".ScrappedResultNormal" />
         <activity android:name=".ScrappedResultClubs" />
         <!-- Firebase Notifications -->
@@ -68,6 +67,9 @@
         </service>
         <!-- Firebase Notifications -->
 
+        <activity android:name=".ClubActivities.IEEE" />
+        <activity android:name=".ClubActivities.Litmus" />
+        <activity android:name=".ClubActivities.Aperture"></activity>
     </application>
 
 </manifest>

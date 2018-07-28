@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/container"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScrappedResultNormal">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+
+    <ImageView
+        android:src="@drawable/back"
+        android:alpha="0.15"
+        android:id="@+id/background"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:transitionName="@string/app_name"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/heading"
+            android:textColor="@color/gray"
+            android:layout_marginTop="32dip"
+            android:layout_marginStart="24dip"
+            android:textSize="21sp"
+            android:text="Litmus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:alpha="0"
+            android:layout_below="@id/heading"
+            android:layout_marginTop="15dip"
+            android:id="@+id/poemRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

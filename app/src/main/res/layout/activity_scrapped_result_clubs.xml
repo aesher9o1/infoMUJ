@@ -29,6 +29,7 @@
         android:layout_height="match_parent"
         />
     <TextView
+        android:transitionName="@string/app_name"
         android:id="@+id/heading"
         android:textColor="@color/gray"
         android:layout_marginTop="32dip"
@@ -230,7 +231,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/white"
                     android:layout_marginTop="5dip"
-                    android:text="Subscriber"
+                    android:text="Subscribe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

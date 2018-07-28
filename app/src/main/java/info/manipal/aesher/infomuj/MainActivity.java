@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     void prepare(final String category, final int number) {
-        final RecyclerView[] cardViews = {engineering, clubs, college, policies};
+        final RecyclerView[] cardViews = {  engineering, clubs, college, policies};
         new Thread(new Runnable() {
             @Override
             public void run() {

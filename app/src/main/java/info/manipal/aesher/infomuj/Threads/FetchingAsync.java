@@ -1,7 +1,6 @@
 package info.manipal.aesher.infomuj.Threads;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,11 +25,8 @@ public class FetchingAsync extends AsyncTask<String, Void, String> {
         try {
             info += strings[1];
             Document doc = Jsoup.connect(url).get();
-            Log.w("Website", "Website to fetch " + strings[3]);
-            Log.w("Website", "" + doc);
             String CssQuery = "div[id=" + strings[3] + "]";
             Element text = doc.select(CssQuery).first();
-            Log.w("Website", "" + text);
             info += "" + text;
             return info;
         } catch (IOException e) {
