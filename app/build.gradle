@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    api 'com.github.vipulasri:timelineview:1.0.6'
+
 
 
     api 'com.google.firebase:firebase-core:16.0.0'

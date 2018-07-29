@@ -2,6 +2,7 @@ package info.manipal.aesher.infomuj;
 
 import android.Manifest;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -164,13 +165,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
+    String[] PERMISSIONS = {
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.CAMERA
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        isCameraPermission();
+        if(!hasPermissions(this, PERMISSIONS))
+            ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
+
         /* Sets the main fragment of the page*/
         replaceFrag();
         Picasso.get().load(R.drawable.back).into(back);
@@ -298,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                dialogueFlowButton.setText("Popular Places");
+                dialogueFlowButton.setText("Popular Links");
                 dialogueFlowButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getApplicationContext(), R.drawable.navigation), null, null, null);
                 dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(300).start();
             }
@@ -318,14 +326,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         ft.commit();
     }
 
-
-    public void isCameraPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
             }
         }
-
+        return true;
     }
 
     void prepare(final String category, final int number) {
