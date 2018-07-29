@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +40,10 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import info.manipal.aesher.infomuj.ClubActivities.Aperture;
+import info.manipal.aesher.infomuj.ClubActivities.IEEE;
 import info.manipal.aesher.infomuj.ClubActivities.Litmus;
 import info.manipal.aesher.infomuj.Constants.Clubs;
-import info.manipal.aesher.infomuj.ClubActivities.IEEE;
 import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.Constants.firebaseData;
 import info.manipal.aesher.infomuj.Threads.FetchingAsync;
@@ -90,7 +89,6 @@ public class ScrappedResultClubs extends AppCompatActivity {
     TextView registration;
 
 
-
     UtilityFunctions utilityFunctions;
 
     ViewGroup transactionsContainer;
@@ -112,7 +110,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Log.w("Aashis" , getIntent().getStringExtra("Name"));
+        Log.w("Aashis", getIntent().getStringExtra("Name"));
 
         loadBottomData();
 
@@ -122,26 +120,23 @@ public class ScrappedResultClubs extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     firebaseData firebaseData = dataSnapshot.getValue(info.manipal.aesher.infomuj.Constants.firebaseData.class);
-                    if(!firebaseData.getDivId().equals("NaN")){
+                    if (!firebaseData.getDivId().equals("NaN")) {
                         final StringBuilder BranchName = new StringBuilder();
                         BranchName.append("<div style=\"text-align:center;font-size:18px;\"><b>").append(firebaseData.getName()).append("</b></div><br>");
                         new FetchingAsync(new FetchingInterface() {
                             @Override
                             public void processFinished(String output) {
 
-                                try{
+                                try {
 
                                     loadDataToWeb(output);
-                                }catch (Exception e){
-                                    Log.w("Website",""+e);}
+                                } catch (Exception e) {
+                                    Log.w("Website", "" + e);
+                                }
                             }
                         }).execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
-                    }
-                    else
+                    } else
                         loadDataToWeb("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>" + firebaseData.getLongOverview());
-
-
-
 
 
                 } else utilityFunctions.Toast("Invalid Data");
@@ -155,19 +150,14 @@ public class ScrappedResultClubs extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
-
 
 
     private void prepareBackTransition(final FABRevealLayout fabRevealLayout) {
 
-        utilityFunctions.scale(payment,50);
-        utilityFunctions.scale(contact,100);
-        utilityFunctions.scale(notifications,150);
+        utilityFunctions.scale(payment, 50);
+        utilityFunctions.scale(contact, 100);
+        utilityFunctions.scale(notifications, 150);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -176,7 +166,7 @@ public class ScrappedResultClubs extends AppCompatActivity {
         }, 4000);
     }
 
-    private  void configureFabReveal(){
+    private void configureFabReveal() {
         fabRevealLayout.setOnRevealChangeListener(new OnRevealChangeListener() {
             @Override
             public void onMainViewAppeared(FABRevealLayout fabRevealLayout, View mainView) {
@@ -191,17 +181,14 @@ public class ScrappedResultClubs extends AppCompatActivity {
     }
 
 
-    private void loadBottomData(){
-
-
-
+    private void loadBottomData() {
 
 
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ScrappedResultClubs.this,heading,heading.getTransitionName()).toBundle();
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ScrappedResultClubs.this, heading, heading.getTransitionName()).toBundle();
 
                 switch (getIntent().getStringExtra("Name")) {
                     case "IEEE":
@@ -228,31 +215,31 @@ public class ScrappedResultClubs extends AppCompatActivity {
                 }
 
 
-
             }
         });
 
 
         FirebaseDatabase.getInstance().getReference(getIntent().getStringExtra("Name"))
-                                    .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.w("Firebase",""+dataSnapshot);
-                final Clubs clubs = dataSnapshot.getValue(Clubs.class);
-                Picasso.get().load(Objects.requireNonNull(clubs).getImageUrl()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).into(clubLogo, new Callback() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onSuccess() { }
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.w("Firebase", "" + dataSnapshot);
+                        final Clubs clubs = dataSnapshot.getValue(Clubs.class);
+                        Picasso.get().load(Objects.requireNonNull(clubs).getImageUrl()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).into(clubLogo, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                            }
 
-                    @Override
-                    public void onError(Exception e) {
-                        Picasso.get().load(clubs.getImageUrl()).placeholder(R.mipmap.ic_launcher).fit().centerCrop() .into(clubLogo);
-                    }
-                });
+                            @Override
+                            public void onError(Exception e) {
+                                Picasso.get().load(clubs.getImageUrl()).placeholder(R.mipmap.ic_launcher).fit().centerCrop().into(clubLogo);
+                            }
+                        });
 
-                registration.setText(clubs.getRegistration());
+                        registration.setText(clubs.getRegistration());
 
 
-                        if(mAuth.getCurrentUser()!=null){
+                        if (mAuth.getCurrentUser() != null) {
                             contact.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -268,29 +255,26 @@ public class ScrappedResultClubs extends AppCompatActivity {
 
 
                                     FirebaseMessaging.getInstance().subscribeToTopic(getIntent().getStringExtra("Name"));
-                                    Toast.makeText(getApplicationContext(),"Your are now subscribed to "+getIntent().getStringExtra("Name")+" notification channel",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Your are now subscribed to " + getIntent().getStringExtra("Name") + " notification channel", Toast.LENGTH_SHORT).show();
 
 
                                 }
                             });
 
-                        }else utilityFunctions.Toast("Please sign in to access the function");
+                        } else utilityFunctions.Toast("Please sign in to access the function");
 
 
+                    }
 
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
     }
 
 
-
-
-    private void loadDataToWeb(final String s){
+    private void loadDataToWeb(final String s) {
         progressBar.setVisibility(View.GONE);
 
 
@@ -299,13 +283,12 @@ public class ScrappedResultClubs extends AppCompatActivity {
                 new ChangeText().setChangeBehavior(3));
 
 
-
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 heading.setText(getIntent().getStringExtra("Name"));
-                webView.loadData(s,"text/html", null);
+                webView.loadData(s, "text/html", null);
 
                 fabRevealLayout.setVisibility(View.VISIBLE);
                 RevealLayout.animate().alpha(0).setDuration(500);
@@ -321,9 +304,8 @@ public class ScrappedResultClubs extends AppCompatActivity {
                 });
 
             }
-        };handler.postDelayed(runnable,800);
-
-
+        };
+        handler.postDelayed(runnable, 800);
 
 
     }

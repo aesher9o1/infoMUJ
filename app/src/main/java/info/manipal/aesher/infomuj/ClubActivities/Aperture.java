@@ -1,8 +1,7 @@
 package info.manipal.aesher.infomuj.ClubActivities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -11,13 +10,11 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.manipal.aesher.infomuj.Adapters.Clubs.ApertureAdapter;
-import info.manipal.aesher.infomuj.Adapters.Clubs.IEEEAdapter;
 import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.R;
 import info.manipal.aesher.infomuj.Threads.AperturePhotos;
 import info.manipal.aesher.infomuj.Threads.Interface.ApertureInterface;
 import info.manipal.aesher.infomuj.Threads.Interface.ApertureWrapper;
-import info.manipal.aesher.infomuj.Threads.Interface.IEEENewsWrapper;
 
 public class Aperture extends AppCompatActivity {
 
@@ -45,11 +42,10 @@ public class Aperture extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setNestedScrollingEnabled(false);
-
-        apertureWrapper = new ApertureWrapper(null,null);
-        apertureAdapter= new ApertureAdapter(getApplicationContext(),apertureWrapper);
+        apertureWrapper = new ApertureWrapper(null, null);
+        apertureAdapter = new ApertureAdapter(getApplicationContext(), apertureWrapper);
         recyclerView.setAdapter(apertureAdapter);
 
 
@@ -60,7 +56,7 @@ public class Aperture extends AppCompatActivity {
             public void processFinished(ApertureWrapper apertureWrapper) {
                 progressBar.setVisibility(View.GONE);
 
-                ApertureAdapter apertureAdapter = new ApertureAdapter(getApplicationContext(),apertureWrapper);
+                ApertureAdapter apertureAdapter = new ApertureAdapter(getApplicationContext(), apertureWrapper);
                 recyclerView.setAdapter(apertureAdapter);
 
                 recyclerView.animate().alpha(1).setDuration(500);

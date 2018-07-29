@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import info.manipal.aesher.infomuj.R;
 import info.manipal.aesher.infomuj.Threads.Interface.LitmusPoemWrapper;
 
@@ -17,7 +15,7 @@ public class LitmusAdapter extends RecyclerView.Adapter<LitmusAdapter.ViewHolder
 
     private LitmusPoemWrapper litmusPoemWrapper;
 
-    public LitmusAdapter(LitmusPoemWrapper litmusPoemWrapper){
+    public LitmusAdapter(LitmusPoemWrapper litmusPoemWrapper) {
         this.litmusPoemWrapper = litmusPoemWrapper;
     }
 
@@ -25,25 +23,25 @@ public class LitmusAdapter extends RecyclerView.Adapter<LitmusAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycleview_litmus,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycleview_litmus, parent, false);
         return new LitmusAdapter.ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.poem.setText(litmusPoemWrapper.getPoems().get(position));
-            holder.title.setText(litmusPoemWrapper.getTitle().get(position));
+        holder.poem.setText(litmusPoemWrapper.getPoems().get(position));
+        holder.title.setText(litmusPoemWrapper.getTitle().get(position));
     }
 
     @Override
     public int getItemCount() {
-       if(litmusPoemWrapper.getPoems()!=null)
-        return litmusPoemWrapper.getPoems().size();
-       else
-           return 0;
+        if (litmusPoemWrapper.getPoems() != null)
+            return litmusPoemWrapper.getPoems().size();
+        else
+            return 0;
     }
 
-    static  class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView poem, title;
 

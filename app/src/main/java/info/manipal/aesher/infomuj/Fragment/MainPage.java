@@ -6,7 +6,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,9 +33,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
-
-
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -87,7 +83,6 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
         tts = new TextToSpeech(getContext(), this);
 
 
-
         gestureDetector = new GestureDetector(getActivity(), new SingleTapConfirm());
         ref = FirebaseDatabase.getInstance().getReference("manipal");
         ref.keepSynced(true);
@@ -127,14 +122,15 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
                                     @Override
                                     public void processFinished(String output) {
 
-                                        try{
+                                        try {
                                             customDialog.SetWebView(output);
                                             speakOut(firebaseData.getShortOverview());
-                                        }catch (Exception e){
-                                            Log.w("Website",""+e);}
+                                        } catch (Exception e) {
+                                            Log.w("Website", "" + e);
+                                        }
                                     }
                                 }).execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
-                                } else {
+                            } else {
                                 final StringBuilder LongInfo = new StringBuilder();
                                 LongInfo.append("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>");
                                 LongInfo.append(firebaseData.getLongOverview());
@@ -293,7 +289,7 @@ public class MainPage extends Fragment implements TextToSpeech.OnInitListener {
         super.onDestroy();
     }
 
-    private  void speakOut(final String text) {
+    private void speakOut(final String text) {
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override

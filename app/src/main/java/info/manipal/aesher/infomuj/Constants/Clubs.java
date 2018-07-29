@@ -2,11 +2,12 @@ package info.manipal.aesher.infomuj.Constants;
 
 public class Clubs {
 
-    private String  imageUrl,notification,registration,contact;
+    private String imageUrl, notification, registration, contact;
 
-    Clubs(){}
+    Clubs() {
+    }
 
-    Clubs(String imageUrl,String notification,String registration,String contact){
+    Clubs(String imageUrl, String notification, String registration, String contact) {
         this.imageUrl = imageUrl;
         this.notification = notification;
         this.registration = registration;

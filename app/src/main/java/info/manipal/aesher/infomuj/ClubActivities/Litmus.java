@@ -4,19 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import info.manipal.aesher.infomuj.Adapters.Clubs.IEEEAdapter;
 import info.manipal.aesher.infomuj.Adapters.Clubs.LitmusAdapter;
 import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.R;
-import info.manipal.aesher.infomuj.Threads.Interface.IEEENewsWrapper;
 import info.manipal.aesher.infomuj.Threads.Interface.LitmusInterface;
 import info.manipal.aesher.infomuj.Threads.Interface.LitmusPoemWrapper;
 import info.manipal.aesher.infomuj.Threads.LitmusPoem;
@@ -32,7 +27,6 @@ public class Litmus extends AppCompatActivity {
     ProgressBar progressBar;
 
 
-
     LitmusPoemWrapper litmusPoemWrapper;
 
     @Override
@@ -45,7 +39,7 @@ public class Litmus extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         poemRecycler.setLayoutManager(linearLayoutManager);
         poemRecycler.setNestedScrollingEnabled(false);
 

@@ -3,13 +3,12 @@ package info.manipal.aesher.infomuj.Constants;
 public class Users {
 
 
+    private String name, email;
 
+    Users() {
+    }
 
-    private String name,email;
-
-    Users(){}
-
-    public Users(String name, String email){
+    public Users(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -17,7 +16,6 @@ public class Users {
     public String getName() {
         return name;
     }
-
 
 
     public String getEmail() {

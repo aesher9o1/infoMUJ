@@ -13,7 +13,7 @@ import info.manipal.aesher.infomuj.Threads.Interface.FetchingInterface;
 public class FetchingAsync extends AsyncTask<String, Void, String> {
 
     private FetchingInterface fetchingInterface;
-    private  String info = "";
+    private String info = "";
 
     public FetchingAsync(FetchingInterface fetchingInterface) {
         this.fetchingInterface = fetchingInterface;
@@ -38,8 +38,8 @@ public class FetchingAsync extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(s!=null)
-        fetchingInterface.processFinished(s);
+        if (s != null)
+            fetchingInterface.processFinished(s);
 
 
     }

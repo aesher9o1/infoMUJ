@@ -31,7 +31,7 @@ public class IEEEAdapter extends RecyclerView.Adapter<IEEEAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recyclerview_ieee,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recyclerview_ieee, parent, false);
         return new ViewHolder(v);
     }
 
@@ -55,13 +55,13 @@ public class IEEEAdapter extends RecyclerView.Adapter<IEEEAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(newsWrapper.getURL()!=null)
+        if (newsWrapper.getURL() != null)
             return newsWrapper.getURL().size();
         else
             return 0;
     }
 
-    static  class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView clicker, time, title, news;
 

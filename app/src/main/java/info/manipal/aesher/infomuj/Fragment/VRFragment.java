@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -122,16 +120,16 @@ public class VRFragment extends Fragment {
                             VR vr = dataSnapshot.getValue(VR.class);
                             assert vr != null;
 
-                            Picasso.get().load(model.getBgImage()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).fit().centerCrop() .into(holder.panoView, new Callback() {
+                            Picasso.get().load(model.getBgImage()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).fit().centerCrop().into(holder.panoView, new Callback() {
                                 @Override
-                                public void onSuccess() {}
+                                public void onSuccess() {
+                                }
 
                                 @Override
                                 public void onError(Exception e) {
-                                    Picasso.get().load(model.getBgImage()).placeholder(R.mipmap.ic_launcher).fit().centerCrop() .into(holder.panoView);
+                                    Picasso.get().load(model.getBgImage()).placeholder(R.mipmap.ic_launcher).fit().centerCrop().into(holder.panoView);
                                 }
                             });
-
 
 
                             if (vr.getSize() == (new File(folder + "/" + model.getPlace() + ".jpg").length())) {
@@ -144,13 +142,13 @@ public class VRFragment extends Fragment {
                                     }
                                 });
 
-                                holder.developerCredits.setText( holder.developerCredits.getText().toString()+model.getCredits());
+                                holder.developerCredits.setText(holder.developerCredits.getText().toString() + model.getCredits());
                                 holder.developerCredits.setVisibility(View.VISIBLE);
                                 holder.name.setText(model.getPlace());
                                 Log.w("Size", "All Clear");
                             } else {
                                 Log.w("Size", "File Exist but downloading");
-                                downloadFile(model.getPlace(), storageReference, holder,model.getBgImage(),model.getCredits());
+                                downloadFile(model.getPlace(), storageReference, holder, model.getBgImage(), model.getCredits());
                             }
                         }
 
@@ -162,7 +160,7 @@ public class VRFragment extends Fragment {
 
                 } else {
                     Log.w("Size", "Fresh Download");
-                    downloadFile(model.getPlace(), storageReference, holder,model.getBgImage(), model.getCredits());
+                    downloadFile(model.getPlace(), storageReference, holder, model.getBgImage(), model.getCredits());
                 }
 
 
@@ -186,13 +184,14 @@ public class VRFragment extends Fragment {
 
     private void downloadFile(final String filename, StorageReference storageReference, final vrRecyclerView holder, final String backgroundImage, final String Credits) {
 
-        Picasso.get().load(backgroundImage).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop() .into(holder.panoView, new Callback() {
+        Picasso.get().load(backgroundImage).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop().into(holder.panoView, new Callback() {
             @Override
-            public void onSuccess() {}
+            public void onSuccess() {
+            }
 
             @Override
             public void onError(Exception e) {
-                Picasso.get().load(backgroundImage).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop() .into(holder.panoView);
+                Picasso.get().load(backgroundImage).placeholder(R.mipmap.ic_launcher).error(R.drawable.ic_small_noti).fit().centerCrop().into(holder.panoView);
             }
 
         });
@@ -210,9 +209,9 @@ public class VRFragment extends Fragment {
                     }
                 });
 
-                Toast.makeText(Objects.requireNonNull(getContext()), filename+" is ready to be viewed. Tap on the card to get started", Toast.LENGTH_LONG).show();
+                Toast.makeText(Objects.requireNonNull(getContext()), filename + " is ready to be viewed. Tap on the card to get started", Toast.LENGTH_LONG).show();
                 holder.name.setText(filename);
-                holder.developerCredits.setText( holder.developerCredits.getText().toString()+Credits);
+                holder.developerCredits.setText(holder.developerCredits.getText().toString() + Credits);
                 holder.developerCredits.setVisibility(View.VISIBLE);
 
             }
@@ -286,7 +285,6 @@ public class VRFragment extends Fragment {
 
         }
     }
-
 
 
 }

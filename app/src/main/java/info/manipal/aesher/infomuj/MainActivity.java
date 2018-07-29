@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (mAuth.getCurrentUser() == null)
             firebaseSignIn();
         else
-            Log.w("Firebase",mAuth.getCurrentUser().getUid());
+            Log.w("Firebase", mAuth.getCurrentUser().getUid());
 
 
 
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     void prepare(final String category, final int number) {
-        final RecyclerView[] cardViews = {  engineering, clubs, college, policies};
+        final RecyclerView[] cardViews = {engineering, clubs, college, policies};
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -371,9 +371,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users/" + mAuth.getUid());
                             databaseReference.setValue(new Users(Objects.requireNonNull(acct).getGivenName(), acct.getEmail()));
-                        }
-                        else
-                            Toast.makeText(getApplicationContext(),"Check your internet connection",Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -394,8 +393,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Snackbar.make(sothreeLayout, "Authentication Requires an Internet Connection", Snackbar.LENGTH_LONG).show();
@@ -411,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                Log.w("Firebase","Signining");
+                Log.w("Firebase", "Signining");
             } catch (ApiException e) {
                 Log.w("FirebaseAuth", "Failed " + e);
             }
@@ -422,8 +419,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onPause() {
         super.onPause();
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-        mGoogleApiClient.stopAutoManage(this);
-        mGoogleApiClient.disconnect();
+            mGoogleApiClient.stopAutoManage(this);
+            mGoogleApiClient.disconnect();
         }
     }
 

@@ -25,7 +25,7 @@ public class Developers extends AppCompatActivity {
 
     @BindView(R.id.vidhyanshu)
     LinearLayout viduName;
-    
+
     @BindView(R.id.aashiskumar)
     CircleImageView aashiskumar;
 
@@ -34,10 +34,10 @@ public class Developers extends AppCompatActivity {
 
     @BindView(R.id.viduContainer)
     LinearLayout viduContainer;
-    
+
     @BindView(R.id.ashContainer)
     LinearLayout ashContainer;
-    
+
     Boolean viduVisible, ashVisible;
 
 
@@ -81,9 +81,6 @@ public class Developers extends AppCompatActivity {
         ashVisible = false;
         setLocked(vidhyanshuJain);
         setLocked(aashiskumar);
-
-
-      
 
 
         aashiskumar.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +142,7 @@ public class Developers extends AppCompatActivity {
     }
 
 
-
     public static void setLocked(final CircleImageView v) {
-
 
 
         new Thread(new Runnable() {

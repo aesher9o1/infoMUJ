@@ -1,14 +1,11 @@
 package info.manipal.aesher.infomuj;
 
-import android.animation.Animator;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -25,14 +22,12 @@ import com.transitionseverywhere.ChangeText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import info.manipal.aesher.infomuj.Adapters.ClubProvider;
 import info.manipal.aesher.infomuj.Constants.UtilityFunctions;
 import info.manipal.aesher.infomuj.Constants.firebaseData;
-import info.manipal.aesher.infomuj.Fragment.VRFragment;
 import info.manipal.aesher.infomuj.Threads.FetchingAsync;
 import info.manipal.aesher.infomuj.Threads.Interface.FetchingInterface;
 
-public class ScrappedResultNormal extends AppCompatActivity{
+public class ScrappedResultNormal extends AppCompatActivity {
 
 
     @BindView(R.id.revealLayout)
@@ -73,23 +68,21 @@ public class ScrappedResultNormal extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     firebaseData firebaseData = dataSnapshot.getValue(info.manipal.aesher.infomuj.Constants.firebaseData.class);
-                        if(!firebaseData.getDivId().equals("NaN")){
-                            final StringBuilder BranchName = new StringBuilder();
-                            BranchName.append("<div style=\"text-align:center;font-size:18px;\"><b>").append(firebaseData.getName()).append("</b></div><br>");
-                              new FetchingAsync(new FetchingInterface() {
-                                @Override
-                                public void processFinished(String output) {
-                                    try{
+                    if (!firebaseData.getDivId().equals("NaN")) {
+                        final StringBuilder BranchName = new StringBuilder();
+                        BranchName.append("<div style=\"text-align:center;font-size:18px;\"><b>").append(firebaseData.getName()).append("</b></div><br>");
+                        new FetchingAsync(new FetchingInterface() {
+                            @Override
+                            public void processFinished(String output) {
+                                try {
                                     loadDataToWeb(output);
-                                    }catch (Exception e){Log.w("Website",""+e);}
+                                } catch (Exception e) {
+                                    Log.w("Website", "" + e);
                                 }
-                            }).execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
-                        }
-                        else
-                            loadDataToWeb("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>" + firebaseData.getLongOverview());
-
-
-
+                            }
+                        }).execute(firebaseData.getLongOverview(), BranchName.toString(), firebaseData.getShortOverview(), firebaseData.getDivId());
+                    } else
+                        loadDataToWeb("<div style=\"text-align:center;font-size:18px;\"><b>" + firebaseData.getName() + "</b></div><br>" + firebaseData.getLongOverview());
 
 
                 } else utilityFunctions.Toast("Invalid Data");
@@ -103,11 +96,10 @@ public class ScrappedResultNormal extends AppCompatActivity{
         });
 
 
-
     }
 
 
-    private void loadDataToWeb(final String s){
+    private void loadDataToWeb(final String s) {
         progressBar.setVisibility(View.GONE);
 
         utilityFunctions.setRevealLayout(RevealLayout);
@@ -121,13 +113,15 @@ public class ScrappedResultNormal extends AppCompatActivity{
             public void run() {
 
                 heading.setText(getIntent().getStringExtra("Name"));
-                webView.loadData(s,"text/html", null);
+                webView.loadData(s, "text/html", null);
                 RevealLayout.animate().alpha(0).setDuration(500);
                 body.setVisibility(View.VISIBLE);
             }
-        }; handler.postDelayed(runnable,600);
+        };
+        handler.postDelayed(runnable, 600);
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

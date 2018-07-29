@@ -22,7 +22,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
 
     private List<ContactProvider> myProvider;
 
-    public ContactAdapter( List<ContactProvider> mProvider) {
+    public ContactAdapter(List<ContactProvider> mProvider) {
         this.myProvider = mProvider;
     }
 
@@ -48,7 +48,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
     }
 
     private void replaceFrag(View view, String clickedItem) {
-        if(!TextUtils.isEmpty(clickedItem)){
+        if (!TextUtils.isEmpty(clickedItem)) {
             Bundle bundle = new Bundle();
             bundle.putString("dataToLoad", clickedItem);
             WayPoints fragmentWay = new WayPoints();

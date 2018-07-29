@@ -3,8 +3,6 @@ package info.manipal.aesher.infomuj.Threads;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -15,14 +13,14 @@ import java.util.List;
 import info.manipal.aesher.infomuj.Threads.Interface.LitmusInterface;
 import info.manipal.aesher.infomuj.Threads.Interface.LitmusPoemWrapper;
 
-public class LitmusPoem extends AsyncTask<String,Void,LitmusPoemWrapper> {
+public class LitmusPoem extends AsyncTask<String, Void, LitmusPoemWrapper> {
 
-    private List<String> Listpoems,ListTitle;
+    private List<String> Listpoems, ListTitle;
 
     private LitmusInterface litmusInterface;
 
 
-    public LitmusPoem (LitmusInterface litmusInterface){
+    public LitmusPoem(LitmusInterface litmusInterface) {
         this.litmusInterface = litmusInterface;
     }
 
@@ -36,17 +34,16 @@ public class LitmusPoem extends AsyncTask<String,Void,LitmusPoemWrapper> {
                     .ignoreContentType(true).get().body().text();
 
 
-
             JSONArray poems = new JSONArray(fetchedPoems);
 
 
-            for (int i=0;i<poems.length();i++){
+            for (int i = 0; i < poems.length(); i++) {
                 JSONObject poem = new JSONObject(poems.get(i).toString());
                 JSONArray finalPoem = new JSONArray(poem.get("lines").toString());
 
 
                 StringBuilder stringBuilder = new StringBuilder();
-                for(int j=0;j<finalPoem.length();j++){
+                for (int j = 0; j < finalPoem.length(); j++) {
                     stringBuilder.append(finalPoem.get(j));
                     stringBuilder.append("\n");
                 }
@@ -58,14 +55,13 @@ public class LitmusPoem extends AsyncTask<String,Void,LitmusPoemWrapper> {
             }
 
 
-        Log.w("Litmus",""+ListTitle.size());
-        return new LitmusPoemWrapper(ListTitle,Listpoems);
-        }
-        catch (Exception e){
-            Log.w("Litmus Exception", ""+e);
+            Log.w("Litmus", "" + ListTitle.size());
+            return new LitmusPoemWrapper(ListTitle, Listpoems);
+        } catch (Exception e) {
+            Log.w("Litmus Exception", "" + e);
         }
 
-        return  null;
+        return null;
     }
 
     @Override

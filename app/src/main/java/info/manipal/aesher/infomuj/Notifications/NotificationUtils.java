@@ -16,7 +16,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -159,8 +158,6 @@ public class NotificationUtils {
             e.printStackTrace();
         }
     }
-
-
 
 
     public static long getTimeMilliSec(String timeStamp) {

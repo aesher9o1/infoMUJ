@@ -19,7 +19,7 @@ public class UtilityFunctions {
 
     private Context mContext;
 
-    public UtilityFunctions(Context mContext){
+    public UtilityFunctions(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -30,13 +30,11 @@ public class UtilityFunctions {
     /**
      * Get Mat Color
      */
-    public int getMatColor()
-    {
+    public int getMatColor() {
         int returnColor = Color.BLACK;
         int arrayId = mContext.getResources().getIdentifier("mdcolor_" + "500", "array", Objects.requireNonNull(mContext).getPackageName());
 
-        if (arrayId != 0)
-        {
+        if (arrayId != 0) {
             TypedArray colors = mContext.getResources().obtainTypedArray(arrayId);
             int index = (int) (Math.random() * colors.length());
             returnColor = colors.getColor(index, Color.BLACK);
@@ -49,11 +47,11 @@ public class UtilityFunctions {
      * Circular Reveal
      */
 
-    public void setRevealLayout(LinearLayout layout){
+    public void setRevealLayout(LinearLayout layout) {
         int cx = layout.getWidth();
         int cy = layout.getHeight();
-        float finalRadius = (float) Math.hypot(cx, cy)+100;
-        Animator anim = ViewAnimationUtils.createCircularReveal(layout,cx/2,cy/2,0,finalRadius).setDuration(550);
+        float finalRadius = (float) Math.hypot(cx, cy) + 100;
+        Animator anim = ViewAnimationUtils.createCircularReveal(layout, cx / 2, cy / 2, 0, finalRadius).setDuration(550);
         layout.setVisibility(View.VISIBLE);
         anim.start();
     }
@@ -62,9 +60,9 @@ public class UtilityFunctions {
     /**
      * Full Screen
      */
-    public void goFullScreen(){
-        ((Activity)mContext).requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ((Activity)mContext).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    public void goFullScreen() {
+        ((Activity) mContext).requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ((Activity) mContext).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
@@ -72,16 +70,16 @@ public class UtilityFunctions {
     /**
      * Toast
      */
-    public void Toast(String toShow){
-        Toast.makeText(mContext,toShow,Toast.LENGTH_SHORT).show();
+    public void Toast(String toShow) {
+        Toast.makeText(mContext, toShow, Toast.LENGTH_SHORT).show();
     }
 
 
     /**
-     *Scale
+     * Scale
      */
 
-    public void scale(View view, long delay){
+    public void scale(View view, long delay) {
         view.setScaleX(0);
         view.setScaleY(0);
         view.animate()

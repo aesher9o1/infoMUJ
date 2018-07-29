@@ -8,7 +8,7 @@ public class IEEENewsWrapper {
     private long[] time;
 
 
-    public IEEENewsWrapper(List<String> by,List<String> Title, List<String> URL, long[] time){
+    public IEEENewsWrapper(List<String> by, List<String> Title, List<String> URL, long[] time) {
         this.by = by;
         this.Title = Title;
         this.URL = URL;

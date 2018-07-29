@@ -225,8 +225,9 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
         try {
             dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
             dialogueFlowButton.setBackgroundResource(R.drawable.roundbutton3);
+        } catch (Exception e) {
+            Log.w("DialogueFlow Error", "" + e);
         }
-        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
     }
 
     @Override
@@ -236,25 +237,27 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     @Override
     public void onListeningStarted() {
-        try{
-        dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton2);
-    }
-        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
+        try {
+            dialogueFlowButton.animate().scaleX(1.19f).scaleY(1.19f).setDuration(100).start();
+            dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton2);
+        } catch (Exception e) {
+            Log.w("DialogueFlow Error", "" + e);
+        }
     }
 
     @Override
     public void onListeningCanceled() {
-        try{
-        dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
-        dialogueFlowButton.setBackgroundResource(R.drawable.roundbutton3);
-    }
-        catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
+        try {
+            dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+            dialogueFlowButton.setBackgroundResource(R.drawable.roundbutton3);
+        } catch (Exception e) {
+            Log.w("DialogueFlow Error", "" + e);
+        }
     }
 
     private void speakOut(String text) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP&& !TextUtils.isEmpty(text)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && !TextUtils.isEmpty(text)) {
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
@@ -262,10 +265,12 @@ public class DialogueFlow extends Fragment implements AIListener, TextToSpeech.O
 
     @Override
     public void onListeningFinished() {
-        try{
-        dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
+        try {
+            dialogueFlowButton.animate().scaleX(1f).scaleY(1f).setDuration(100).start();
             dialogueFlowButton.setBackgroundResource(R.drawable.roundedbutton);
-    } catch (Exception e) {Log.w("DialogueFlow Error", ""+e);}
+        } catch (Exception e) {
+            Log.w("DialogueFlow Error", "" + e);
+        }
     }
 
     @Override

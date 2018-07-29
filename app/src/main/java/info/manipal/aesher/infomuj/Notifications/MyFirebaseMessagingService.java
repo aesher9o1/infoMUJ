@@ -13,7 +13,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-
 import java.util.Objects;
 
 import info.manipal.aesher.infomuj.MainActivity;
@@ -38,7 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
         inboxStyle.addLine(remoteMessage.getNotification().getBody());
 
-        NotificationCompat.Builder builder = new  NotificationCompat.Builder(this, channelId)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_small_noti)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
                 .setContentTitle(remoteMessage.getNotification().getTitle())
@@ -53,9 +52,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         Objects.requireNonNull(manager).notify(0, builder.build());
     }
-
-
-
 
 
 }

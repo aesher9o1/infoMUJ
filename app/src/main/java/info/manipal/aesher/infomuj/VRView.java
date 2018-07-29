@@ -1,6 +1,5 @@
 package info.manipal.aesher.infomuj;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,9 +34,10 @@ public class VRView extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        try{loadPanoImage(getIntent().getStringExtra("imageToLoad"), panoramaView);}
-        catch (OutOfMemoryError e){
-            Toast.makeText(this,"Not enough RAM",Toast.LENGTH_SHORT).show();
+        try {
+            loadPanoImage(getIntent().getStringExtra("imageToLoad"), panoramaView);
+        } catch (OutOfMemoryError e) {
+            Toast.makeText(this, "Not enough RAM", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -79,8 +79,6 @@ public class VRView extends AppCompatActivity {
         super.onResume();
         panoramaView.resumeRendering();
     }
-
-
 
 
     static class ImageLoaderTask extends AsyncTask<AssetManager, Void, Bitmap> {
@@ -133,7 +131,7 @@ public class VRView extends AppCompatActivity {
                     vw.loadImageFromBitmap(bitmap, viewOptions);
 
                 } catch (Exception e) {
-                    Log.w("panorama exception", ""+e);
+                    Log.w("panorama exception", "" + e);
                 }
 
             }

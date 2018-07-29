@@ -1,17 +1,11 @@
 package info.manipal.aesher.infomuj.ClubActivities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-
-import org.jsoup.Jsoup;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +29,6 @@ public class IEEE extends AppCompatActivity {
     ProgressBar progressBar;
 
 
-
-
     IEEENewsWrapper newsWrapperLocal;
 
     @Override
@@ -48,12 +40,12 @@ public class IEEE extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         newsReycler.setLayoutManager(linearLayoutManager);
         newsReycler.setNestedScrollingEnabled(false);
 
-        newsWrapperLocal = new IEEENewsWrapper(null,null,null,null);
-        IEEEAdapter ieeeAdapter = new IEEEAdapter(newsWrapperLocal,getApplicationContext());
+        newsWrapperLocal = new IEEENewsWrapper(null, null, null, null);
+        IEEEAdapter ieeeAdapter = new IEEEAdapter(newsWrapperLocal, getApplicationContext());
         newsReycler.setAdapter(ieeeAdapter);
 
         new IEEENews(new IEEENewsInterface() {
@@ -62,7 +54,7 @@ public class IEEE extends AppCompatActivity {
 
                 progressBar.setVisibility(View.GONE);
 
-                IEEEAdapter ieeeAdapter = new IEEEAdapter(newsWrapper,getApplicationContext());
+                IEEEAdapter ieeeAdapter = new IEEEAdapter(newsWrapper, getApplicationContext());
                 newsReycler.setAdapter(ieeeAdapter);
 
                 newsReycler.animate().alpha(1).setDuration(500);

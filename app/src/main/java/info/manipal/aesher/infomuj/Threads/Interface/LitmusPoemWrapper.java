@@ -4,9 +4,9 @@ import java.util.List;
 
 public class LitmusPoemWrapper {
 
-    private List<String>  title, poems;
+    private List<String> title, poems;
 
-    public LitmusPoemWrapper(List<String> title, List<String> poems){
+    public LitmusPoemWrapper(List<String> title, List<String> poems) {
         this.title = title;
         this.poems = poems;
     }

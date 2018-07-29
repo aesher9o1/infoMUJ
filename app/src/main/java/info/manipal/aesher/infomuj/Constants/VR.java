@@ -1,14 +1,14 @@
 package info.manipal.aesher.infomuj.Constants;
 
 public class VR {
-    private String url, place,bgImage,credits;
+    private String url, place, bgImage, credits;
     private Long size;
 
 
     public VR() {
     }
 
-    public VR(String url, String place, Long size,String bgImage,String credits) {
+    public VR(String url, String place, Long size, String bgImage, String credits) {
         this.url = url;
         this.place = place;
         this.size = size;
@@ -28,7 +28,11 @@ public class VR {
         return size;
     }
 
-    public String getBgImage() { return bgImage; }
+    public String getBgImage() {
+        return bgImage;
+    }
 
-    public String getCredits() { return credits; }
+    public String getCredits() {
+        return credits;
+    }
 }

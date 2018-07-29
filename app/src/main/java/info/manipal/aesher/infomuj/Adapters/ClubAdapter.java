@@ -1,35 +1,19 @@
 package info.manipal.aesher.infomuj.Adapters;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
-import java.io.IOException;
 import java.util.List;
 
-import info.manipal.aesher.infomuj.MainActivity;
-import info.manipal.aesher.infomuj.ScrappedResultClubs;
 import info.manipal.aesher.infomuj.R;
+import info.manipal.aesher.infomuj.ScrappedResultClubs;
 import info.manipal.aesher.infomuj.ScrappedResultNormal;
 
 public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder> {
@@ -44,7 +28,6 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder> 
         this.myProvider = mProvider;
         this.dialog = dialog;
         this.category = category;
-
 
 
     }
@@ -66,16 +49,15 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder> 
             public void onClick(View v) {
 
 
-                if(category.equals("club")){
+                if (category.equals("club")) {
                     Intent i = new Intent(myContext.getApplicationContext(), ScrappedResultClubs.class);
-                    i.putExtra("Index", ""+provider.getIndex());
-                    i.putExtra("Name",provider.getLayoutTitle());
+                    i.putExtra("Index", "" + provider.getIndex());
+                    i.putExtra("Name", provider.getLayoutTitle());
                     myContext.startActivity(i);
-                }
-                else{
+                } else {
                     Intent i = new Intent(myContext.getApplicationContext(), ScrappedResultNormal.class);
-                    i.putExtra("Index", ""+provider.getIndex());
-                    i.putExtra("Name",provider.getLayoutTitle());
+                    i.putExtra("Index", "" + provider.getIndex());
+                    i.putExtra("Name", provider.getLayoutTitle());
                     myContext.startActivity(i);
                 }
 
@@ -103,7 +85,6 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.MyViewHolder> 
 
 
     }
-
 
 
 }

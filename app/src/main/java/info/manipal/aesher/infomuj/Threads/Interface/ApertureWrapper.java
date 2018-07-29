@@ -7,7 +7,7 @@ public class ApertureWrapper {
     List<String> Url;
     List<String> Name;
 
-    public  ApertureWrapper(List<String> Url, List<String> Name){
+    public ApertureWrapper(List<String> Url, List<String> Name) {
         this.Url = Url;
         this.Name = Name;
     }
